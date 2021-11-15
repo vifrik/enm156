@@ -1,3 +1,5 @@
+package Planner.src;
+
 public class TravelData {
     private String station;
     private String destination;

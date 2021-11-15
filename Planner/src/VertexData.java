@@ -1,3 +1,5 @@
+package Planner.src;
+
 public class VertexData {
     private String name;
     private int time;

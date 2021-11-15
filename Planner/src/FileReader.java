@@ -1,3 +1,5 @@
+package Planner.src;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -5,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileReader extends File {
-    private ArrayList<TravelData> travelData = new ArrayList<>();
+    private final ArrayList<TravelData> travelData = new ArrayList<>();
 
     public FileReader(String pathname) {
         super(pathname);
@@ -14,7 +16,7 @@ public class FileReader extends File {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(",");
-                TravelData td = new TravelData(parts[0], parts[1], Double.valueOf(parts[2]), Integer.valueOf(parts[3]));
+                TravelData td = new TravelData(parts[0], parts[1], Double.parseDouble(parts[2]), Integer.parseInt(parts[3]));
                 travelData.add(td);
             }
             scanner.close();

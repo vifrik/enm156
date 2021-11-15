@@ -1,15 +1,18 @@
-import org.jgrapht.*;
+package Planner.src;
+
+import com.mxgraph.layout.mxCircleLayout;
+import com.mxgraph.layout.mxIGraphLayout;
+import com.mxgraph.swing.mxGraphComponent;
+import org.jgrapht.Graph;
+import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.AllDirectedPaths;
 import org.jgrapht.ext.JGraphXAdapter;
-import org.jgrapht.graph.*;
+import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 
-import java.awt.Dimension;
-import java.util.*;
-
-import javax.swing.JFrame;
-
-import com.mxgraph.layout.*;
-import com.mxgraph.swing.mxGraphComponent;
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class App {
     public final static int TIME_DELAY = 10;
@@ -17,7 +20,7 @@ public final class App {
     public static void main(String[] args) {
         Graph<VertexData, DefaultWeightedEdge> g = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
 
-        FileReader fileReader = new FileReader("travel.txt");
+        FileReader fileReader = new FileReader("data/travel.txt");
         ArrayList<TravelData> travelData = fileReader.getTravelData();
 
         for (TravelData td : travelData) {
