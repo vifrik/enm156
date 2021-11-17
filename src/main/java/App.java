@@ -1,7 +1,7 @@
-import timetable.MockTimeTable;
-import timetable.TimeTable;
-import userinterface.CommandLineInterface;
-import userinterface.UserInterface;
+import model.timetable.MockTimeTable;
+import model.timetable.TimeTable;
+import view.TextView;
+import view.BaseView;
 
 public final class App {
     public final static int TIME_DELAY = 10;
@@ -75,7 +75,7 @@ public final class App {
          */
 
         TimeTable timeTable = new MockTimeTable();
-        UserInterface userInterface = new CommandLineInterface(timeTable);
+        BaseView userInterface = new TextView(timeTable);
         userInterface.start();
     }
 }
