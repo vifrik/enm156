@@ -1,21 +1,13 @@
-import com.mxgraph.layout.mxCircleLayout;
-import com.mxgraph.layout.mxIGraphLayout;
-import com.mxgraph.swing.mxGraphComponent;
-import org.jgrapht.Graph;
-import org.jgrapht.GraphPath;
-import org.jgrapht.alg.shortestpath.AllDirectedPaths;
-import org.jgrapht.ext.JGraphXAdapter;
-import org.jgrapht.graph.DefaultWeightedEdge;
-import org.jgrapht.graph.SimpleDirectedWeightedGraph;
-
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
+import model.timetable.MockTimeTable;
+import model.timetable.TimeTable;
+import view.TextView;
+import view.BaseView;
 
 public final class App {
     public final static int TIME_DELAY = 10;
 
     public static void main(String[] args) {
+        /*
         Graph<VertexData, DefaultWeightedEdge> g = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
 
         FileReader fileReader = new FileReader("data/travel.txt");
@@ -80,6 +72,10 @@ public final class App {
         frame.pack();
         frame.setLocationByPlatform(true);
         frame.setVisible(true);
-    }
+         */
 
+        TimeTable timeTable = new MockTimeTable();
+        BaseView userInterface = new TextView(timeTable);
+        userInterface.start();
+    }
 }
