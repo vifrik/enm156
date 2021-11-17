@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="vast-planner" />
+        <module name="enm156" />
       </profile>
     </annotationProcessing>
   </component>
