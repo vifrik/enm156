@@ -1,4 +1,4 @@
-package Vasttrafik;
+package VasttrafikAPI;
 
 import com.google.gson.Gson;
 import okhttp3.Response;

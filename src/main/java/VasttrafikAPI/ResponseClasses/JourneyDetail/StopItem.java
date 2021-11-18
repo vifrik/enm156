@@ -1,8 +1,8 @@
-package Vasttrafik.ResponseClasses.JourneyDetail;
+package VasttrafikAPI.ResponseClasses.JourneyDetail;
 
 import com.google.gson.annotations.SerializedName;
 
-public class StopItem{
+public class StopItem {
 
     @SerializedName("arrDate")
     private String arrDate;
@@ -34,43 +34,43 @@ public class StopItem{
     @SerializedName("depDate")
     private String depDate;
 
-    public String getArrDate(){
+    public String getArrDate() {
         return arrDate;
     }
 
-    public String getRouteIdx(){
+    public String getRouteIdx() {
         return routeIdx;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String getLon(){
+    public String getLon() {
         return lon;
     }
 
-    public String getId(){
+    public String getId() {
         return id;
     }
 
-    public String getTrack(){
+    public String getTrack() {
         return track;
     }
 
-    public String getArrTime(){
+    public String getArrTime() {
         return arrTime;
     }
 
-    public String getLat(){
+    public String getLat() {
         return lat;
     }
 
-    public String getDepTime(){
+    public String getDepTime() {
         return depTime;
     }
 
-    public String getDepDate(){
+    public String getDepDate() {
         return depDate;
     }
 }

@@ -1,13 +1,13 @@
-import Vasttrafik.Auth;
-import Vasttrafik.ResponseClasses.DepartureBoard.DepartureBoardResponse;
-import Vasttrafik.ResponseClasses.DepartureBoard.DepartureItem;
-import Vasttrafik.ResponseClasses.JourneyDetail.JourneyDetailResponse;
-import Vasttrafik.ResponseClasses.JourneyDetail.StopItem;
-import Vasttrafik.ResponseClasses.NearbyStops.LocationList;
-import Vasttrafik.ResponseClasses.NearbyStops.NearbyStopsResponse;
-import Vasttrafik.ResponseClasses.NearbyStops.StopLocationItem;
-import Vasttrafik.ResponseClasses.Token;
-import Vasttrafik.TravelData;
+import VasttrafikAPI.Auth;
+import VasttrafikAPI.ResponseClasses.DepartureBoard.DepartureBoardResponse;
+import VasttrafikAPI.ResponseClasses.DepartureBoard.DepartureItem;
+import VasttrafikAPI.ResponseClasses.JourneyDetail.JourneyDetailResponse;
+import VasttrafikAPI.ResponseClasses.JourneyDetail.StopItem;
+import VasttrafikAPI.ResponseClasses.NearbyStops.LocationList;
+import VasttrafikAPI.ResponseClasses.NearbyStops.NearbyStopsResponse;
+import VasttrafikAPI.ResponseClasses.NearbyStops.StopLocationItem;
+import VasttrafikAPI.ResponseClasses.Token;
+import VasttrafikAPI.TravelData;
 
 public class ApiTest {
     public static void main(String[] args) {

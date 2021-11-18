@@ -1,13 +1,13 @@
-package Vasttrafik.ResponseClasses.JourneyDetail;
+package VasttrafikAPI.ResponseClasses.JourneyDetail;
 
 import com.google.gson.annotations.SerializedName;
 
-public class JourneyDetailResponse{
+public class JourneyDetailResponse {
 
     @SerializedName("JourneyDetail")
     private JourneyDetail journeyDetail;
 
-    public JourneyDetail getJourneyDetail(){
+    public JourneyDetail getJourneyDetail() {
         return journeyDetail;
     }
 }

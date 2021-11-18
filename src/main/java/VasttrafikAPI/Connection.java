@@ -1,4 +1,4 @@
-package Vasttrafik;
+package VasttrafikAPI;
 
 import okhttp3.*;
 

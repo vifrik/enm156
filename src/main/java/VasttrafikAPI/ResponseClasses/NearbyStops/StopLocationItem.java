@@ -1,4 +1,4 @@
-package Vasttrafik.ResponseClasses.NearbyStops;
+package VasttrafikAPI.ResponseClasses.NearbyStops;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,4 +1,4 @@
-package Vasttrafik.ResponseClasses;
+package VasttrafikAPI.ResponseClasses;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,6 +1,6 @@
-package Vasttrafik;
+package VasttrafikAPI;
 
-import Vasttrafik.ResponseClasses.Token;
+import VasttrafikAPI.ResponseClasses.Token;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;

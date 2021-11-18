@@ -1,4 +1,4 @@
-package Vasttrafik.ResponseClasses.DepartureBoard;
+package VasttrafikAPI.ResponseClasses.DepartureBoard;
 
 import com.google.gson.annotations.SerializedName;
 

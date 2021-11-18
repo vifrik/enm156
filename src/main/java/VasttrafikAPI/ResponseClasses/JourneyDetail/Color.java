@@ -1,8 +1,8 @@
-package Vasttrafik.ResponseClasses.JourneyDetail;
+package VasttrafikAPI.ResponseClasses.JourneyDetail;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Color{
+public class Color {
 
     @SerializedName("fgColor")
     private String fgColor;
@@ -13,15 +13,15 @@ public class Color{
     @SerializedName("stroke")
     private String stroke;
 
-    public String getFgColor(){
+    public String getFgColor() {
         return fgColor;
     }
 
-    public String getBgColor(){
+    public String getBgColor() {
         return bgColor;
     }
 
-    public String getStroke(){
+    public String getStroke() {
         return stroke;
     }
 }

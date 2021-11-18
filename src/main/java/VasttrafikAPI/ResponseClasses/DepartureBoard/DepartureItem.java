@@ -1,8 +1,8 @@
-package Vasttrafik.ResponseClasses.DepartureBoard;
+package VasttrafikAPI.ResponseClasses.DepartureBoard;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DepartureItem{
+public class DepartureItem {
 
     @SerializedName("date")
     private String date;
@@ -52,67 +52,67 @@ public class DepartureItem{
     @SerializedName("direction")
     private String direction;
 
-    public String getDate(){
+    public String getDate() {
         return date;
     }
 
-    public String getFgColor(){
+    public String getFgColor() {
         return fgColor;
     }
 
-    public JourneyDetailRef getJourneyDetailRef(){
+    public JourneyDetailRef getJourneyDetailRef() {
         return journeyDetailRef;
     }
 
-    public String getAccessibility(){
+    public String getAccessibility() {
         return accessibility;
     }
 
-    public String getJourneyNumber(){
+    public String getJourneyNumber() {
         return journeyNumber;
     }
 
-    public String getStopid(){
+    public String getStopid() {
         return stopid;
     }
 
-    public String getType(){
+    public String getType() {
         return type;
     }
 
-    public String getJourneyid(){
+    public String getJourneyid() {
         return journeyid;
     }
 
-    public String getStroke(){
+    public String getStroke() {
         return stroke;
     }
 
-    public String getStop(){
+    public String getStop() {
         return stop;
     }
 
-    public String getBgColor(){
+    public String getBgColor() {
         return bgColor;
     }
 
-    public String getSname(){
+    public String getSname() {
         return sname;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String getTime(){
+    public String getTime() {
         return time;
     }
 
-    public String getTrack(){
+    public String getTrack() {
         return track;
     }
 
-    public String getDirection(){
+    public String getDirection() {
         return direction;
     }
 }

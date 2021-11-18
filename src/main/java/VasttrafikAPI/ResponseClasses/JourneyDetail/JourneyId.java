@@ -1,8 +1,8 @@
-package Vasttrafik.ResponseClasses.JourneyDetail;
+package VasttrafikAPI.ResponseClasses.JourneyDetail;
 
 import com.google.gson.annotations.SerializedName;
 
-public class JourneyTypeItem{
+public class JourneyId {
 
     @SerializedName("routeIdxTo")
     private String routeIdxTo;
@@ -10,18 +10,18 @@ public class JourneyTypeItem{
     @SerializedName("routeIdxFrom")
     private String routeIdxFrom;
 
-    @SerializedName("type")
-    private String type;
+    @SerializedName("id")
+    private String id;
 
-    public String getRouteIdxTo(){
+    public String getRouteIdxTo() {
         return routeIdxTo;
     }
 
-    public String getRouteIdxFrom(){
+    public String getRouteIdxFrom() {
         return routeIdxFrom;
     }
 
-    public String getType(){
-        return type;
+    public String getId() {
+        return id;
     }
 }
