@@ -1,31 +1,19 @@
 package Vasttrafik.ResponseClasses;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Token {
     @SerializedName("scope")
-    @Expose
-    private final String scope;
+    private String scope;
 
     @SerializedName("token_type")
-    @Expose
-    private final String tokenType;
+    private String tokenType;
 
     @SerializedName("expires_in")
-    @Expose
-    private final int expiresIn;
+    private int expiresIn;
 
     @SerializedName("access_token")
-    @Expose
-    private final String accessToken;
-
-    public Token(String scope, String token_type, int expires_in, String access_token) {
-        this.scope = scope;
-        this.tokenType = token_type;
-        this.expiresIn = expires_in;
-        this.accessToken = access_token;
-    }
+    private String accessToken;
 
     public String getScope() {
         return scope;
