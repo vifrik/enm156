@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Auth {
     public static Token getToken() {
-        final String encodedString = "X0MxVXJ4YzhOWDJRTVlkc3FmS25lWkxkRVJJYTpSSUJucHZnOVFKNVNHQUtHZUR4VDdoOVpqSllh";
+        final String encodedString = "cTBVSzlpVk82Zm9LSW00alI2SGNvcmc5RkZFYTpyWnZEMVhkWW9ObExuS2RWU3FRWFZxelZScDRh";
 
         Map<String, String> auth = new HashMap<>();
         auth.put("Authorization", "Bearer " + encodedString);
