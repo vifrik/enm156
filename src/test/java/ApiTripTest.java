@@ -8,6 +8,7 @@ import java.util.List;
 
 public class ApiTripTest {
     public static void main(String[] args) {
+
         Token token = Auth.getToken();
 
         TripResponse tripResponse = TravelData.getTrip("9022014001960001", "9021014004945000",

@@ -19,4 +19,8 @@ public class JSON {
 
         return null;
     }
+
+    public static <T> T objFromJson(String data, Class<T> classOfT) {
+        return gson.fromJson(data, classOfT);
+    }
 }

@@ -1,9 +1,12 @@
 package VasttrafikAPI.ResponseClasses.Trip;
 
-import java.util.List;
+import VasttrafikAPI.StationWeight;
 import com.google.gson.annotations.SerializedName;
 
-public class TripList{
+import java.util.List;
+import java.util.Map;
+
+public class TripList {
 
     @SerializedName("serverdate")
     private String serverdate;
@@ -17,29 +20,32 @@ public class TripList{
     @SerializedName("noNamespaceSchemaLocation")
     private String noNamespaceSchemaLocation;
 
-    public String getServerdate(){
+    public String getServerdate() {
         return serverdate;
     }
 
-    public List<TripItem> getTrips(){
+    public List<TripItem> getTrips() {
         return trips;
     }
 
-    public String getServertime(){
+    public String getServertime() {
         return servertime;
     }
 
-    public String getNoNamespaceSchemaLocation(){
+    public String getNoNamespaceSchemaLocation() {
         return noNamespaceSchemaLocation;
     }
 
-    public void calculateScores(){
-        for(TripItem trip : trips){
+    public void calculateScores() {
+        StationWeight stationWeight = new StationWeight();
+        Map<String, Integer> stationWeights = stationWeight.getWeights();
+
+        for (TripItem trip : trips) {
             double score = 0;
 
-            for(LegItem leg : trip.getLeg()){
+            for (LegItem leg : trip.getLeg()) {
                 String dest = leg.getDestination().getName();
-                score += 1; //weight[dest];
+                score += stationWeights.get(dest);
             }
 
             trip.setScore(score);
