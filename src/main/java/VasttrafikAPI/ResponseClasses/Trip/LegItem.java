@@ -13,17 +13,14 @@ public class LegItem{
     @SerializedName("Destination")
     private Destination destination;
 
-    @SerializedName("booking")
-    private boolean booking;
-
     @SerializedName("JourneyDetailRef")
     private JourneyDetailRef journeyDetailRef;
 
     @SerializedName("accessibility")
     private String accessibility;
 
-    @SerializedName("night")
-    private boolean night;
+    @SerializedName("journeyNumber")
+    private String journeyNumber;
 
     @SerializedName("type")
     private String type;
@@ -31,29 +28,17 @@ public class LegItem{
     @SerializedName("stroke")
     private String stroke;
 
-    @SerializedName("reachable")
-    private boolean reachable;
-
     @SerializedName("bgColor")
     private String bgColor;
 
     @SerializedName("sname")
     private String sname;
 
-    @SerializedName("GeometryRef")
-    private GeometryRef geometryRef;
-
     @SerializedName("name")
     private String name;
 
-    @SerializedName("cancelled")
-    private boolean cancelled;
-
     @SerializedName("id")
     private String id;
-
-    @SerializedName("Notes")
-    private Notes notes;
 
     @SerializedName("direction")
     private String direction;
@@ -70,10 +55,6 @@ public class LegItem{
         return destination;
     }
 
-    public boolean isBooking(){
-        return booking;
-    }
-
     public JourneyDetailRef getJourneyDetailRef(){
         return journeyDetailRef;
     }
@@ -82,8 +63,8 @@ public class LegItem{
         return accessibility;
     }
 
-    public boolean isNight(){
-        return night;
+    public String getJourneyNumber(){
+        return journeyNumber;
     }
 
     public String getType(){
@@ -94,10 +75,6 @@ public class LegItem{
         return stroke;
     }
 
-    public boolean isReachable(){
-        return reachable;
-    }
-
     public String getBgColor(){
         return bgColor;
     }
@@ -106,24 +83,12 @@ public class LegItem{
         return sname;
     }
 
-    public GeometryRef getGeometryRef(){
-        return geometryRef;
-    }
-
     public String getName(){
         return name;
     }
 
-    public boolean isCancelled(){
-        return cancelled;
-    }
-
     public String getId(){
         return id;
-    }
-
-    public Notes getNotes(){
-        return notes;
     }
 
     public String getDirection(){
