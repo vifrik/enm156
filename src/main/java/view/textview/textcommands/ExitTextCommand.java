@@ -1,6 +1,6 @@
-package view.inputcommands;
+package view.textview.textcommands;
 
-import view.TextView;
+import view.textview.TextView;
 
 public class ExitInputCommand extends InputCommand {
     ExitInputCommand(TextView textView) {
