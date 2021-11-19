@@ -9,7 +9,7 @@ public class TripList{
     private String serverdate;
 
     @SerializedName("Trip")
-    private List<TripItem> trip;
+    private List<TripItem> trips;
 
     @SerializedName("servertime")
     private String servertime;
@@ -21,8 +21,8 @@ public class TripList{
         return serverdate;
     }
 
-    public List<TripItem> getTrip(){
-        return trip;
+    public List<TripItem> getTrips(){
+        return trips;
     }
 
     public String getServertime(){
@@ -31,5 +31,18 @@ public class TripList{
 
     public String getNoNamespaceSchemaLocation(){
         return noNamespaceSchemaLocation;
+    }
+
+    public void calculateScores(){
+        for(TripItem trip : trips){
+            double score = 0;
+
+            for(LegItem leg : trip.getLeg()){
+                String dest = leg.getDestination().getName();
+                score += 1; //weight[dest];
+            }
+
+            trip.setScore(score);
+        }
     }
 }

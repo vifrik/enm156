@@ -3,6 +3,10 @@ package VasttrafikAPI.ResponseClasses.Trip;
 import com.google.gson.annotations.SerializedName;
 
 public class LegItem{
+    @Override
+    public String toString(){
+        return origin.getName() + " -> " + destination.getName();
+    }
 
     @SerializedName("Origin")
     private Origin origin;

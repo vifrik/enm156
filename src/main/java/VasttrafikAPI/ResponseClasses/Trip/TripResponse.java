@@ -10,4 +10,14 @@ public class TripResponse{
     public TripList getTripList(){
         return tripList;
     }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for(TripItem t : tripList.getTrips()){
+            sb.append(t);
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
 }

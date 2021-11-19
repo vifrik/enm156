@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="enm156-git" />
         <module name="vast-planner" />
+        <module name="enm156" />
       </profile>
     </annotationProcessing>
   </component>

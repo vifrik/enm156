@@ -7,7 +7,15 @@ import VasttrafikAPI.ResponseClasses.NearbyStops.LocationList;
 import VasttrafikAPI.ResponseClasses.NearbyStops.NearbyStopsResponse;
 import VasttrafikAPI.ResponseClasses.NearbyStops.StopLocationItem;
 import VasttrafikAPI.ResponseClasses.Token;
+import VasttrafikAPI.ResponseClasses.Trip.LegItem;
+import VasttrafikAPI.ResponseClasses.Trip.TripItem;
 import VasttrafikAPI.TravelData;
+import org.jgrapht.GraphPath;
+import org.jgrapht.graph.DefaultWeightedEdge;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ApiTest {
     public static void main(String[] args) {
@@ -32,5 +40,6 @@ public class ApiTest {
         for (StopItem stopItem : journeyDetailResponse.getJourneyDetail().getStops()) {
             System.out.println(stopItem.getName());
         }
+
     }
 }
