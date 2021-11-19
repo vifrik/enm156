@@ -52,13 +52,31 @@ public class TravelData {
         return JSON.objFromJson(response, JourneyDetailResponse.class);
     }
 
-    public static TripResponse getTrip(String originId, String destId, Token token) {
+    public static TripResponse getTrip(String originId, String destId,
+                                       String viaId, String date, String time,
+                                       String searchForArrival, String wheelChairSpace,
+                                       String strollerSpace, String lowFloor,
+                                       String rampOrLift, String maxWalkDist,
+                                       String walkSpeed, String additionalChangeTime,
+                                       String numTrips, Token token) {
         Map<String, String> auth = new HashMap<>();
         auth.put("Authorization", "Bearer " + token.getAccessToken());
 
         Map<String, String> params = new HashMap<>();
         params.put("originId", originId);
         params.put("destId", destId);
+        params.put("viaId", viaId);
+        params.put("date", date);
+        params.put("time", time);
+        params.put("searchForArrival", searchForArrival);
+        params.put("wheelChairSpace", wheelChairSpace);
+        params.put("strollerSpace", strollerSpace);
+        params.put("lowFloor", lowFloor);
+        params.put("rampOrLift", rampOrLift);
+        params.put("maxWalkDist", maxWalkDist);
+        params.put("walkSpeed", walkSpeed);
+        params.put("additionalChangeTime", additionalChangeTime);
+        params.put("numTrips", numTrips);
 
         Response response = Connection.sendRequest("bin/rest.exe/v2/trip", "GET", params, auth, null);
 

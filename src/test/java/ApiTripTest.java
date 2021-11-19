@@ -7,7 +7,10 @@ public class ApiTripTest {
     public static void main(String[] args) {
         Token token = Auth.getToken();
 
-        TripResponse nearbyStations = TravelData.getTrip("9022014001960001", "9021014004945000", token);
+        TripResponse nearbyStations = TravelData.getTrip("9022014001960001", "9021014004945000",
+                null, null, null, null, null, null,
+                null, null, null, null, null, null,
+                token);
 
         System.out.println(nearbyStations);
     }
