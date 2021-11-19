@@ -1,4 +1,5 @@
 import VasttrafikAPI.Auth;
+import VasttrafikAPI.ResponseClasses.Name.NameResponse;
 import VasttrafikAPI.ResponseClasses.Token;
 import VasttrafikAPI.ResponseClasses.Trip.TripItem;
 import VasttrafikAPI.ResponseClasses.Trip.TripResponse;
@@ -11,7 +12,13 @@ public class ApiTripTest {
 
         Token token = Auth.getToken();
 
-        TripResponse tripResponse = TravelData.getTrip("9022014001960001", "9021014004945000",
+        NameResponse nameResponse = TravelData.getName("Chalmers", token);
+        String idFrom = nameResponse.getLocationList().getStopLocation().get(0).getId();
+
+        nameResponse = TravelData.getName("Ekmanska", token);
+        String idTo = nameResponse.getLocationList().getStopLocation().get(0).getId();
+
+        TripResponse tripResponse = TravelData.getTrip(idFrom, idTo,
                 null, null, null, null, null, null,
                 null, null, null, null, null, "20",
                 token);
