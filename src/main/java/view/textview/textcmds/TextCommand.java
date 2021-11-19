@@ -1,4 +1,4 @@
-package view.textview.textcommands;
+package view.textview.textcmds;
 
 import view.textview.TextView;
 

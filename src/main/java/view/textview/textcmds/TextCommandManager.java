@@ -1,4 +1,4 @@
-package view.textview.textcommands;
+package view.textview.textcmds;
 
 import view.textview.TextView;
 
@@ -24,7 +24,7 @@ public class TextCommandManager {
         TextCommand cmd = commandMap.get(name);
 
         if (cmd == null) {
-            System.out.printf("Could not recognize command '%s'", name);
+            System.out.printf("Unknown command '%s'.\n", name);
             return;
         }
 

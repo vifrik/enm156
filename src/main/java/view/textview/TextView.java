@@ -2,7 +2,7 @@ package view.textview;
 
 import model.timetable.TimeTable;
 import view.BaseView;
-import view.textview.textcommands.TextCommandManager;
+import view.textview.textcmds.TextCommandManager;
 
 import java.util.Locale;
 import java.util.Scanner;

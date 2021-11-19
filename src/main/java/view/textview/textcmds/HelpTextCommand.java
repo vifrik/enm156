@@ -1,4 +1,4 @@
-package view.textview.textcommands;
+package view.textview.textcmds;
 
 import view.textview.TextView;
 
@@ -18,7 +18,7 @@ public class HelpTextCommand extends TextCommand {
             handleUnrecognizedArguments(arguments);
 
         for (String name:commandMap.keySet()) {
-            System.out.printf("%s: %s", name, commandMap.get(name).getDescription());
+            System.out.printf("%s: %s\n", name, commandMap.get(name).getDescription());
         }
     }
 
