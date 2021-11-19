@@ -45,7 +45,9 @@ public class TripList {
 
             for (LegItem leg : trip.getLeg()) {
                 String dest = leg.getDestination().getName();
-                score += stationWeights.get(dest);
+                int weight = stationWeights.get(dest);
+                double weightContribution = Math.log(weight) / Math.log(2);
+                score += weightContribution;
             }
 
             trip.setScore(score);
