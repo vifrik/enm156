@@ -1,21 +1,13 @@
-import VasttrafikAPI.Auth;
-import VasttrafikAPI.ResponseClasses.DepartureBoard.DepartureBoardResponse;
-import VasttrafikAPI.ResponseClasses.DepartureBoard.DepartureItem;
-import VasttrafikAPI.ResponseClasses.JourneyDetail.JourneyDetailResponse;
-import VasttrafikAPI.ResponseClasses.JourneyDetail.StopItem;
-import VasttrafikAPI.ResponseClasses.NearbyStops.LocationList;
-import VasttrafikAPI.ResponseClasses.NearbyStops.NearbyStopsResponse;
-import VasttrafikAPI.ResponseClasses.NearbyStops.StopLocationItem;
-import VasttrafikAPI.ResponseClasses.Token;
-import VasttrafikAPI.ResponseClasses.Trip.LegItem;
-import VasttrafikAPI.ResponseClasses.Trip.TripItem;
-import VasttrafikAPI.TravelData;
-import org.jgrapht.GraphPath;
-import org.jgrapht.graph.DefaultWeightedEdge;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import vasttrafikAPI.Auth;
+import vasttrafikAPI.responseClasses.departureBoard.DepartureBoardResponse;
+import vasttrafikAPI.responseClasses.departureBoard.DepartureItem;
+import vasttrafikAPI.responseClasses.journeyDetail.JourneyDetailResponse;
+import vasttrafikAPI.responseClasses.journeyDetail.StopItem;
+import vasttrafikAPI.responseClasses.nearbyStops.LocationList;
+import vasttrafikAPI.responseClasses.nearbyStops.NearbyStopsResponse;
+import vasttrafikAPI.responseClasses.nearbyStops.StopLocationItem;
+import vasttrafikAPI.responseClasses.Token;
+import vasttrafikAPI.TravelData;
 
 public class ApiTest {
     public static void main(String[] args) {

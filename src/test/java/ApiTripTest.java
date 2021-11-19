@@ -1,9 +1,9 @@
-import VasttrafikAPI.Auth;
-import VasttrafikAPI.ResponseClasses.Name.NameResponse;
-import VasttrafikAPI.ResponseClasses.Token;
-import VasttrafikAPI.ResponseClasses.Trip.TripItem;
-import VasttrafikAPI.ResponseClasses.Trip.TripResponse;
-import VasttrafikAPI.TravelData;
+import vasttrafikAPI.Auth;
+import vasttrafikAPI.responseClasses.name.NameResponse;
+import vasttrafikAPI.responseClasses.Token;
+import vasttrafikAPI.responseClasses.trip.TripItem;
+import vasttrafikAPI.responseClasses.trip.TripResponse;
+import vasttrafikAPI.TravelData;
 
 import java.util.List;
 
