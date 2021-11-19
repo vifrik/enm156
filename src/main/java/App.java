@@ -1,6 +1,6 @@
 import model.timetable.MockTimeTable;
 import model.timetable.TimeTable;
-import view.TextView;
+import view.textview.TextView;
 import view.BaseView;
 
 public final class App {

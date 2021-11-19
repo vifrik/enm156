@@ -1,46 +1,33 @@
 package view.textview.textcommands;
 
-import org.jgrapht.alg.util.Pair;
 import view.textview.TextView;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.function.Supplier;
 
-public class TextCommandFactory {
-    private final HashMap<String, Supplier<TextCommand>> dispatchMap;
+public class TextCommandManager {
+    private final HashMap<String, TextCommand> commandMap;
 
-    public TextCommandFactory(TextView textView) {
-        dispatchMap = new HashMap<>();
-        dispatchMap.put("help", () -> new HelpTextCommand(textView));
-        dispatchMap.put("exit", () -> new ExitTextCommand(textView));
+    public TextCommandManager(TextView textView) {
+        commandMap = new HashMap<>();
+        commandMap.put("help", new HelpTextCommand(textView, commandMap));
+        commandMap.put("exit", new ExitTextCommand(textView));
     }
 
-    public TextCommand getCommand(String name, String... arguments) {
-        TextCommand cmd = createCommand(name);
-        if (cmd.argumentsValid(arguments)) {
-            cmd.execute(arguments);
+    public void executeCommand(String[] words) {
+        String command = words.length == 0 ? null : words[0];
+        String[] arguments = words.length < 2 ? new String[0] : Arrays.copyOfRange(words, 1, words.length);
+        executeCommand(command, arguments);
+    }
+
+    public void executeCommand(String name, String... arguments) {
+        TextCommand cmd = commandMap.get(name);
+
+        if (cmd == null) {
+            System.out.printf("Could not recognize command '%s'", name);
+            return;
         }
-    }
 
-    public TextCommand getCommand(String... words) {
-        Pair<String, String[]> nameArgs = splitCommandAndArguments(words);
-        return getCommand(nameArgs.getFirst(), nameArgs.getSecond());
-    }
-
-    private TextCommand createCommand(String name) {
-        Supplier<TextCommand> commandConstructor = dispatchMap.get(name);
-        return commandConstructor.get();
-    }
-
-
-    private Pair<String, String[]> splitCommandAndArguments(String[] words) {
-        String command;
-        String[] arguments;
-
-        command = words.length == 0 ? null : words[0];
-        arguments = words.length < 2 ? new String[0] : Arrays.copyOfRange(words, 1, words.length);
-
-        return new Pair<>(command, arguments);
+        cmd.execute(arguments);
     }
 }
