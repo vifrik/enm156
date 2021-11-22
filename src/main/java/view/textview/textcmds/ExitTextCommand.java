@@ -9,15 +9,22 @@ public class ExitTextCommand extends TextCommand {
 
     @Override
     public void execute(String... arguments) {
-        if (arguments.length > 0)
-            handleUnrecognizedArguments(arguments);
+        if (arguments.length > 0) {
+            printUnrecognizedArguments(arguments);
+            return;
+        }
 
-        System.out.println("Exiting program.");
+        printMessage("Exiting program");
         textView.stopRunning();
     }
 
     @Override
     protected String getDescription() {
         return "Exits the program";
+    }
+
+    @Override
+    protected String getArgumentSummary() {
+        return null;
     }
 }

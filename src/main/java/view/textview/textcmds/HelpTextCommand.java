@@ -14,16 +14,25 @@ public class HelpTextCommand extends TextCommand {
 
     @Override
     public void execute(String... arguments) {
-        if (arguments.length > 0)
-            handleUnrecognizedArguments(arguments);
+        if (arguments.length > 0) {
+            printUnrecognizedArguments(arguments);
+            return;
+        }
 
         for (String name:commandMap.keySet()) {
-            System.out.printf("%s: %s\n", name, commandMap.get(name).getDescription());
+            String description = commandMap.get(name).getDescription();
+            printMessage("%s: %s".formatted(name, description));
         }
     }
 
     @Override
     protected String getDescription() {
         return "Prints out a list of all possible commands";
+    }
+
+    @Override
+    protected String getArgumentSummary() {
+        // TODO Calling help on a function displays name and argument list
+        return null;
     }
 }
