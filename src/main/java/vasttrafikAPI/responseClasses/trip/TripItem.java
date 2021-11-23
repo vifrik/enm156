@@ -22,9 +22,9 @@ public class TripItem {
         StringBuilder sb = new StringBuilder();
         sb.append(score);
         sb.append("\n");
-        sb.append("Time: ").append(getTime());
+        sb.append("Time: ").append(getTimeScore());
         sb.append("\n");
-        sb.append("Weight: ").append(getWeight());
+        sb.append("Weight: ").append(getWeightScore());
         sb.append("\n");
         for (LegItem l : leg) {
             sb.append(l);
@@ -49,7 +49,7 @@ public class TripItem {
         this.score = score;
     }
 
-    public long getTime() {
+    public double getTimeScore() {
         Destination lastDest = leg.get(leg.size() - 1).getDestination();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date arrival = null;
@@ -58,11 +58,11 @@ public class TripItem {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return (arrival.getTime() - System.currentTimeMillis()) / 1000;
+        return (arrival.getTime() - System.currentTimeMillis()) / 1000.0;
     }
 
-    public int getWeight() {
-        int weight = 0;
+    public double getWeightScore() {
+        double weight = 0;
 
         for (LegItem l : leg) {
             String dest = l.getDestination().getName();
@@ -70,7 +70,11 @@ public class TripItem {
             weight += weightContribution;
         }
 
-        return weight;
+        return weight / leg.size();
+    }
+
+    public int getNofStops() {
+        return leg.size();
     }
 
     public static class TripComparator implements Comparator<TripItem> {
