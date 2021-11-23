@@ -1,14 +1,16 @@
 import vasttrafikAPI.Auth;
-import vasttrafikAPI.responseClasses.name.NameResponse;
+import vasttrafikAPI.StationWeight;
+import vasttrafikAPI.TravelData;
 import vasttrafikAPI.responseClasses.Token;
+import vasttrafikAPI.responseClasses.name.NameResponse;
 import vasttrafikAPI.responseClasses.trip.TripItem;
 import vasttrafikAPI.responseClasses.trip.TripResponse;
-import vasttrafikAPI.TravelData;
 
 import java.util.List;
 
 public class ApiTripTest {
     public static void main(String[] args) {
+        StationWeight.setup();
 
         Token token = Auth.getToken();
 
