@@ -5,17 +5,20 @@ import vasttrafikAPI.responseClasses.Token;
 import vasttrafikAPI.responseClasses.name.NameResponse;
 import vasttrafikAPI.responseClasses.trip.TripItem;
 import vasttrafikAPI.responseClasses.trip.TripResponse;
+import vasttrafikAPI.responseClasses.v3.token.TokenV3;
 
 import java.util.List;
 
 public class ApiTripTest {
-    public static String toStringOrNull(Integer n){
-        if(n == null) return null;
+    public static String toStringOrNull(Integer n) {
+        if (n == null) return null;
         return n.toString();
     }
 
-    public static TripResponse getRoutes(String from, String to, Integer walkSpeed, Integer additionalChangeTime){
+    public static TripResponse getRoutes(String from, String to, Integer walkSpeed, Integer additionalChangeTime) {
         Token token = Auth.getToken();
+        TokenV3 tokenV3 = Auth.getTokenV3();
+
         NameResponse nameResponse = TravelData.getName(from, token);
         String idFrom = nameResponse.getLocationList().getStopLocation().get(0).getId();
 

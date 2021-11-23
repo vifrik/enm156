@@ -1,9 +1,10 @@
 package vasttrafikAPI;
 
-import vasttrafikAPI.responseClasses.Token;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import vasttrafikAPI.responseClasses.Token;
+import vasttrafikAPI.responseClasses.v3.token.TokenV3;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,5 +22,14 @@ public class Auth {
         Response response = Connection.sendRequest("token", "POST", null, auth, formBody);
 
         return JSON.objFromJson(response, Token.class);
+    }
+
+    public static TokenV3 getTokenV3() {
+        Map<String, String> auth = new HashMap<>();
+        auth.put("Host", "www.vasttrafik.se");
+
+        Response response = Connection.sendRequestV3("api/token/public/new", "GET", null, auth, null);
+
+        return JSON.objFromJson(response, TokenV3.class);
     }
 }

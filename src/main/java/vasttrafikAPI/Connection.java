@@ -8,12 +8,29 @@ import java.util.Map;
 public class Connection {
     public static final String SCHEME = "https";
     public static final String HOSTNAME = "api.vasttrafik.se";
+    public static final String HOSTNAME_V3 = "www.vasttrafik.se";
     static OkHttpClient client = new OkHttpClient().newBuilder().build();
 
     public static HttpUrl getUrl(String api, Map<String, String> params) {
         HttpUrl.Builder builder = new HttpUrl.Builder()
                 .scheme(SCHEME)
                 .host(HOSTNAME)
+                .addPathSegments(api)
+                .addQueryParameter("format", "json");
+
+        if (params != null) {
+            for (Map.Entry<String, String> param : params.entrySet()) {
+                builder.addQueryParameter(param.getKey(), param.getValue());
+            }
+        }
+
+        return builder.build();
+    }
+
+    public static HttpUrl getUrlV3(String api, Map<String, String> params) {
+        HttpUrl.Builder builder = new HttpUrl.Builder()
+                .scheme(SCHEME)
+                .host(HOSTNAME_V3)
                 .addPathSegments(api)
                 .addQueryParameter("format", "json");
 
@@ -65,6 +82,13 @@ public class Connection {
 
     public static Response sendRequest(String api, String method, Map<String, String> params, Map<String, String> headers, RequestBody body) {
         HttpUrl httpUrl = getUrl(api, params);
+        Request request = getRequest(httpUrl, method, headers, body);
+
+        return sendRequest(request);
+    }
+
+    public static Response sendRequestV3(String api, String method, Map<String, String> params, Map<String, String> headers, RequestBody body) {
+        HttpUrl httpUrl = getUrlV3(api, params);
         Request request = getRequest(httpUrl, method, headers, body);
 
         return sendRequest(request);
