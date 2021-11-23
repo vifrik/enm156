@@ -12,6 +12,7 @@ e.g.: destinationGid=9021014002200000
 
 Param: transportModes
 Alternative(s): tram,bus,ferry,taxi,train,walk,bike
+Warning: Bike is broken
 e.g.: transportModes=tram,bus
 
 Param: transportSubModes
@@ -19,20 +20,24 @@ Alternative(s): vasttagen,regionalTrain,longDistanceTrain
 e.g.: transportSubModes=vasttagen,regionalTrain
 
 Param: originWalk
-Alternative(s): <enabled>,<??>,<max_distance>
+Alternative(s): <enabled>/<enabled>,<min_distance>,<max_distance>
 e.g.: originWalk=1,0,5000
 
 Param: originCar
-Alternative(s): <enabled>
+Alternative(s): <enabled>/<enabled>,<min_distance>,<max_distance>
 e.g.: originCar=0
 
 Param: originBike
-Alternative(s): <enabled>
+Alternative(s): <enabled>/<enabled>,<min_distance>,<max_distance>
 e.g.: originBike=0
 
 Param: originPark
 Alternative(s): <enabled>
 e.g.: originPark=0
+
+Param: interchangeDurationInMinutes
+Alternative(s): <minutes>
+e.g.: interchangeDurationInMinutes=2
 
 Param: includes
 Alternative(s): occupancy
