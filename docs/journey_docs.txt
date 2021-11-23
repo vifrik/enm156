@@ -1,0 +1,48 @@
+Param: dateTimeRelatesTo
+Alternative(s): departure
+e.g.: dateTimeRelatesTo=departure
+
+Param: originGid
+Alternative(s): <station_id>
+e.g.: originGid=9021014001960000
+
+Param: destinationGid
+Alternative: <station_id>
+e.g.: destinationGid=9021014002200000
+
+Param: transportModes
+Alternative(s): tram,bus,ferry,taxi,train,walk,bike
+e.g.: transportModes=tram,bus
+
+Param: transportSubModes
+Alternative(s): vasttagen,regionalTrain,longDistanceTrain
+e.g.: transportSubModes=vasttagen,regionalTrain
+
+Param: originWalk
+Alternative(s): <enabled>,<??>,<max_distance>
+e.g.: originWalk=1,0,5000
+
+Param: originCar
+Alternative(s): <enabled>
+e.g.: originCar=0
+
+Param: originBike
+Alternative(s): <enabled>
+e.g.: originBike=0
+
+Param: originPark
+Alternative(s): <enabled>
+e.g.: originPark=0
+
+Param: includes
+Alternative(s): occupancy
+e.g.: includes=occupancy
+
+Param: includeNearbyStopAreas
+Alternative(s): true/false
+e.g.: includeNearbyStopAreas=true
+
+Param: totalBike
+Alternative(s): <enabled>,<min_distance??>,<max_distance>,<speed>
+Clarification: speed = 65-100?
+e.g.: totalBike=1,500,10000,85
