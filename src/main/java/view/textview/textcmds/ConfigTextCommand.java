@@ -1,40 +1,55 @@
 package view.textview.textcmds;
 
+import controller.IMetricManager;
 import view.textview.TextView;
 
 import java.util.Objects;
 
 public class ConfigTextCommand extends TextCommand{
-    public ConfigTextCommand(TextView textView) {
+    private IMetricManager metricManager;
+
+    public ConfigTextCommand(TextView textView, IMetricManager metricManager) {
         super(textView);
+        this.metricManager = metricManager;
     }
 
     @Override
     public void execute(String... arguments) {
-        if (arguments.length == 0) {
+        parseArguments(arguments);
+    }
+
+    private void parseArguments(String[] arguments) {
+        if (arguments.length == 0)
             printFullDescription();
-            return;
+
+        else if (Objects.equals(arguments[0], "metric")) {
+            parseMetricsArguments(arguments);
         }
 
-        if (Objects.equals(arguments[0], "metrics")) {
-            if (arguments.length == 1) {
-                printFullDescription();
-            }
+        else printUnrecognizedArguments(arguments);
+    }
 
-            if (arguments.length == 2) {
-                String metric = arguments[1];
-                return;
+    private void parseMetricsArguments(String[] arguments) {
+        switch (arguments.length) {
+            case 1 -> printFullDescription();
+            case 2 -> {
+                String metricName = arguments[1];
+                displayMetricWithName(metricName);
             }
-
-            if (arguments.length == 3) {
-                String metric = arguments[1];
-                String value = arguments[2];
-                return;
+            case 3 -> {
+                String metricName = arguments[1];
+                String metricValue = arguments[2];
+                setValueOfMetricWithName(metricName, metricValue);
             }
-
         }
+    }
 
-        printUnrecognizedArguments(arguments);
+    private void setValueOfMetricWithName(String name, String value) {
+        metricManager.setValue(name, value);
+    }
+
+    private void displayMetricWithName(String name) {
+        printMessage(metricManager.getMetric(name));
     }
 
     @Override

@@ -12,7 +12,7 @@ public class TextCommandManager {
         commandMap = new HashMap<>();
         commandMap.put("help", new HelpTextCommand(textView, commandMap));
         commandMap.put("exit", new ExitTextCommand(textView));
-        commandMap.put("config", new ConfigTextCommand(textView));
+        commandMap.put("config", new ConfigTextCommand(textView, new MockMetricManager()));
     }
 
     public void executeCommand(String[] words) {
