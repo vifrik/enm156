@@ -1,6 +1,11 @@
 Units:
     distance: meters
-    speed: percentage of standard speed
+    speed: percentage of standard speed (minutes/km?)
+        100 ~= 15 km/h
+        85 ~= 20 km/h
+        60 ~= 25 km/h
+        Non-linear => y(x) = -0.2x^2 + 4x + 85,
+            x = speed, y(x) = some arbitrary speed quantity
 
 Param: dateTimeRelatesTo
 Description: Determine if the time specified is departure or arrival time
@@ -28,6 +33,12 @@ Alternative(s): tram,bus,ferry,taxi,train,walk,bike
 Warning: Must send as separate params
 e.g.: transportModes=tram
       transportModes=ferry
+
+    Param: totalBike
+    Description: How much bike travel the user wants
+    Alternative(s): <enabled>,<min_distance>,<max_distance>,<speed>
+    Clarification: speed = 65-100?
+    e.g.: totalBike=1,500,10000,85
 
 Param: transportSubModes
 Description: Should use trains etc.
@@ -73,8 +84,7 @@ Description: Can travel to/from nearby stops
 Alternative(s): true/false
 e.g.: includeNearbyStopAreas=true
 
-Param: totalBike
-Description: How much bike travel the user wants
-Alternative(s): <enabled>,<min_distance>,<max_distance>,<speed>
-Clarification: speed = 65-100?
-e.g.: totalBike=1,500,10000,85
+Param: onlyDirectConnections
+Description: No switching
+Alternative(s): true, omit
+e.g.: onlyDirectConnections=true
