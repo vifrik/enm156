@@ -13,13 +13,25 @@ public abstract class TextCommand {
 
     public abstract void execute(String... arguments);
 
-    protected void printUnrecognizedArguments(String[] arguments) {
-        System.out.printf("Unrecognized set of arguments: %s\n", Arrays.toString(arguments));
+    protected void printFullDescription() {
+        printDescription();
+        printArgumentSummary();
     }
 
-    protected void printFullDescription() {
-        System.out.println(getDescription());
-        System.out.println(getArgumentSummary());
+    protected void printUnrecognizedArguments(String[] arguments) {
+        printMessage("Unrecognized set of arguments: %s".formatted(Arrays.toString(arguments)));
+    }
+
+    protected void printDescription() {
+        String description = getDescription();
+        if (description != null)
+            printMessage(description);
+    }
+
+    protected void printArgumentSummary() {
+        String argumentSummary = getArgumentSummary();
+        if (argumentSummary != null)
+            printMessage(argumentSummary);
     }
 
     protected void printMessage(String message) {
