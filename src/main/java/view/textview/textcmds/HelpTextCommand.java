@@ -14,11 +14,27 @@ public class HelpTextCommand extends TextCommand {
 
     @Override
     public void execute(String... arguments) {
-        if (arguments.length > 0) {
-            printUnrecognizedArguments(arguments);
-            return;
+        parseArguments(arguments);
+    }
+
+    private void parseArguments(String[] arguments) {
+        switch (arguments.length) {
+            case 0 -> displayCommandList();
+            case 1 -> {
+                String commandName = arguments[0];
+                displayFullDescription(commandName);
+            }
+            default -> printUnrecognizedArguments(arguments);
         }
 
+    }
+
+    private void displayFullDescription(String commandName) {
+        TextCommand command = commandMap.get(commandName);
+        command.printFullDescription();
+    }
+
+    private void displayCommandList() {
         for (String name:commandMap.keySet()) {
             String description = commandMap.get(name).getDescription();
             printMessage("%s: %s".formatted(name, description));
@@ -32,7 +48,8 @@ public class HelpTextCommand extends TextCommand {
 
     @Override
     protected String getArgumentSummary() {
-        // TODO Calling help on a function displays name and argument list
-        return null;
+        return """
+            Arguments:
+                help [command] - Shows full description of command.""";
     }
 }
