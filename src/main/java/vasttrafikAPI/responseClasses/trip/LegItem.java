@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class LegItem {
     @Override
     public String toString() {
-        return origin.getName() + " -> " + destination.getName();
+        return origin.getName() + " -> " + destination.getName() + "  (" + type + ")";
     }
 
     @SerializedName("Origin")
