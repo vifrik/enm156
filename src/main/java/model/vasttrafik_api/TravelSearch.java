@@ -1,10 +1,10 @@
 package model.vasttrafik_api;
 
+import model.vasttrafik_api.response_classes.Token;
 import model.vasttrafik_api.response_classes.departure_board.DepartureBoardResponse;
 import model.vasttrafik_api.response_classes.journey_detail.JourneyDetailResponse;
 import model.vasttrafik_api.response_classes.name.NameResponse;
 import model.vasttrafik_api.response_classes.nearby_stops.NearbyStopsResponse;
-import model.vasttrafik_api.response_classes.Token;
 import model.vasttrafik_api.response_classes.trip.TripResponse;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -12,7 +12,7 @@ import okhttp3.Response;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TravelData {
+public class TravelSearch {
     public static NearbyStopsResponse getNearbyStations(double lon, double lat, Token token) {
         Map<String, String> auth = new HashMap<>();
         auth.put("Authorization", "Bearer " + token.getAccessToken());
