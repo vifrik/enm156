@@ -1,4 +1,4 @@
-import model.timetable.MockTimeTable;
+import view.textview.textcmds.MockTimeTable;
 import model.timetable.TimeTable;
 import view.textview.TextView;
 import view.BaseView;

@@ -1,8 +1,8 @@
 package view.textview.textcmds;
 
-import controller.IMetricManager;
+import controller.IMetricController;
 
-public class MockMetricManager implements IMetricManager {
+public class MockMetricManager implements IMetricController {
     @Override
     public String getMetric(String name) {
         return "Value of %s is not defined!".formatted(name);
