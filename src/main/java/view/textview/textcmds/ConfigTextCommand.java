@@ -1,14 +1,14 @@
 package view.textview.textcmds;
 
-import controller.IMetricManager;
+import controller.IMetricController;
 import view.textview.TextView;
 
 import java.util.Objects;
 
 public class ConfigTextCommand extends TextCommand{
-    private IMetricManager metricManager;
+    private IMetricController metricManager;
 
-    public ConfigTextCommand(TextView textView, IMetricManager metricManager) {
+    public ConfigTextCommand(TextView textView, IMetricController metricManager) {
         super(textView);
         this.metricManager = metricManager;
     }
