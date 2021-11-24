@@ -1,0 +1,90 @@
+Units:
+    distance: meters
+    speed: percentage of standard speed (minutes/km?)
+        100 ~= 15 km/h
+        85 ~= 20 km/h
+        60 ~= 25 km/h
+        Non-linear => y(x) = -0.2x^2 + 4x + 85,
+            x = speed, y(x) = some arbitrary speed quantity
+
+Param: dateTimeRelatesTo
+Description: Determine if the time specified is departure or arrival time
+Alternative(s): departure, arrival
+e.g.: dateTimeRelatesTo=departure
+
+    Param (Required for arrival, optional for departure): dateTime
+    Description: Time in standard format
+    Alternative(s): <std_time>
+    e.g.: dateTime=2021-11-23T19:00:00.000Z
+
+Param: originGid
+Description: From station id
+Alternative(s): <station_id>
+e.g.: originGid=9021014001960000
+
+Param: destinationGid
+Description: To station id
+Alternative: <station_id>
+e.g.: destinationGid=9021014002200000
+
+Param: transportModes
+Description: What types of travel to use
+Alternative(s): tram,bus,ferry,taxi,train,walk,bike
+Warning: Must send as separate params
+e.g.: transportModes=tram
+      transportModes=ferry
+
+    Param: totalBike
+    Description: How much bike travel the user wants
+    Alternative(s): <enabled>,<min_distance>,<max_distance>,<speed>
+    Clarification: speed = 65-100?
+    e.g.: totalBike=1,500,10000,85
+
+Param: transportSubModes
+Description: Should use trains etc.
+Alternative(s): vasttagen,regionalTrain,longDistanceTrain
+Warning: Must send as separate params
+e.g.: transportSubModes=vasttagen
+      transportSubModes=regionalTrain
+
+# origin<TYPE> determines how to reach the first station
+Param: originWalk
+Description: Walk to origin
+Alternative(s): <enabled>/<enabled>,<min_distance>,<max_distance>
+e.g.: originWalk=1,0,5000
+
+Param: originCar
+Description: Car to origin
+Alternative(s): <enabled>/<enabled>,<min_distance>,<max_distance>
+Warning: Seems unused
+e.g.: originCar=0
+
+Param: originBike
+Description: Bike to origin
+Alternative(s): <enabled>/<enabled>,<min_distance>,<max_distance>
+e.g.: originBike=0
+
+Param: originPark
+Description: Car to origin parking lot
+Alternative(s): <enabled>/<enabled>,<min_distance>,<max_distance>
+e.g.: originPark=0
+
+Param: interchangeDurationInMinutes
+Description: Time for leg change
+Alternative(s): <minutes>
+e.g.: interchangeDurationInMinutes=2
+
+Param: includes
+Description: Unknown
+Alternative(s): occupancy
+e.g.: includes=occupancy
+
+Param: includeNearbyStopAreas
+Description: Can travel to/from nearby stops
+Alternative(s): true/false
+e.g.: includeNearbyStopAreas=true
+
+Param: onlyDirectConnections
+Description: No switching
+Alternative(s): true, omit
+e.g.: onlyDirectConnections=true
