@@ -18,7 +18,7 @@ public abstract class TextCommand {
         printArgumentSummary();
     }
 
-    protected void printUnrecognizedArguments(String[] arguments) {
+    protected void printUnrecognizedArguments(String... arguments) {
         printMessage("Unrecognized set of arguments: %s".formatted(Arrays.toString(arguments)));
     }
 
