@@ -1,6 +1,6 @@
 import model.vasttrafik_api.Auth;
 import model.vasttrafik_api.StationWeight;
-import model.vasttrafik_api.TravelData;
+import model.vasttrafik_api.TravelSearch;
 import model.vasttrafik_api.response_classes.Token;
 import model.vasttrafik_api.response_classes.name.NameResponse;
 import model.vasttrafik_api.response_classes.trip.TripItem;
@@ -19,13 +19,13 @@ public class ApiTripTest {
         Token token = Auth.getToken();
         TokenV3 tokenV3 = Auth.getTokenV3();
 
-        NameResponse nameResponse = TravelData.getName(from, token);
+        NameResponse nameResponse = TravelSearch.getName(from, token);
         String idFrom = nameResponse.getLocationList().getStopLocation().get(0).getId();
 
-        nameResponse = TravelData.getName(to, token);
+        nameResponse = TravelSearch.getName(to, token);
         String idTo = nameResponse.getLocationList().getStopLocation().get(0).getId();
 
-        TripResponse tripResponse = TravelData.getTrip(idFrom, idTo,
+        TripResponse tripResponse = TravelSearch.getTrip(idFrom, idTo,
                 null, null, null, null, null, null,
                 null, null, null, toStringOrNull(walkSpeed), toStringOrNull(additionalChangeTime), "20",
                 token);
