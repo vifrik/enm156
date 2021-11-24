@@ -3,8 +3,8 @@ package model.vasttrafik_api;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import model.vasttrafik_api.responseClasses.Token;
-import model.vasttrafik_api.responseClasses.v3.token.TokenV3;
+import model.vasttrafik_api.response_classes.Token;
+import model.vasttrafik_api.response_classes.v3.token.TokenV3;
 
 import java.util.HashMap;
 import java.util.Map;

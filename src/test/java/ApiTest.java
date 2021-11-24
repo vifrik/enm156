@@ -1,12 +1,12 @@
 import model.vasttrafik_api.Auth;
-import model.vasttrafik_api.responseClasses.departureBoard.DepartureBoardResponse;
-import model.vasttrafik_api.responseClasses.departureBoard.DepartureItem;
-import model.vasttrafik_api.responseClasses.journeyDetail.JourneyDetailResponse;
-import model.vasttrafik_api.responseClasses.journeyDetail.StopItem;
-import model.vasttrafik_api.responseClasses.nearbyStops.LocationList;
-import model.vasttrafik_api.responseClasses.nearbyStops.NearbyStopsResponse;
-import model.vasttrafik_api.responseClasses.nearbyStops.StopLocationItem;
-import model.vasttrafik_api.responseClasses.Token;
+import model.vasttrafik_api.response_classes.departure_board.DepartureBoardResponse;
+import model.vasttrafik_api.response_classes.departure_board.DepartureItem;
+import model.vasttrafik_api.response_classes.journey_detail.JourneyDetailResponse;
+import model.vasttrafik_api.response_classes.journey_detail.StopItem;
+import model.vasttrafik_api.response_classes.nearby_stops.LocationList;
+import model.vasttrafik_api.response_classes.nearby_stops.NearbyStopsResponse;
+import model.vasttrafik_api.response_classes.nearby_stops.StopLocationItem;
+import model.vasttrafik_api.response_classes.Token;
 import model.vasttrafik_api.TravelData;
 
 public class ApiTest {

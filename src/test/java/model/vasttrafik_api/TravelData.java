@@ -1,11 +1,11 @@
 package model.vasttrafik_api;
 
-import model.vasttrafik_api.responseClasses.departureBoard.DepartureBoardResponse;
-import model.vasttrafik_api.responseClasses.journeyDetail.JourneyDetailResponse;
-import model.vasttrafik_api.responseClasses.name.NameResponse;
-import model.vasttrafik_api.responseClasses.nearbyStops.NearbyStopsResponse;
-import model.vasttrafik_api.responseClasses.Token;
-import model.vasttrafik_api.responseClasses.trip.TripResponse;
+import model.vasttrafik_api.response_classes.departure_board.DepartureBoardResponse;
+import model.vasttrafik_api.response_classes.journey_detail.JourneyDetailResponse;
+import model.vasttrafik_api.response_classes.name.NameResponse;
+import model.vasttrafik_api.response_classes.nearby_stops.NearbyStopsResponse;
+import model.vasttrafik_api.response_classes.Token;
+import model.vasttrafik_api.response_classes.trip.TripResponse;
 import okhttp3.Request;
 import okhttp3.Response;
 
