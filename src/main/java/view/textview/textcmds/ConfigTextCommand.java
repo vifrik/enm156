@@ -3,6 +3,7 @@ package view.textview.textcmds;
 import controller.IMetricController;
 import view.textview.TextView;
 
+import java.util.List;
 import java.util.Objects;
 
 public class ConfigTextCommand extends TextCommand{
@@ -58,10 +59,10 @@ public class ConfigTextCommand extends TextCommand{
     }
 
     @Override
-    protected String getArgumentSummary() {
-        return """
-            Arguments:
-                metric [name] - View the value of the given metric.
-                metric [name] [value] - Set the value of the given metric.""";
+    protected List<String> getArgumentList() {
+        return List.of(
+                "metric [name] - View the value of the given metric.",
+                "metric [name] [value] - Set the value of the given metric."
+        );
     }
 }

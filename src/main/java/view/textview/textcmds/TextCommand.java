@@ -3,6 +3,7 @@ package view.textview.textcmds;
 import view.textview.TextView;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class TextCommand {
     protected TextView textView;
@@ -40,5 +41,18 @@ public abstract class TextCommand {
 
     protected abstract String getDescription();
 
-    protected abstract String getArgumentSummary();
+    protected String getArgumentSummary() {
+        List<String> arguments = getArgumentList();
+        if (arguments == null || arguments.isEmpty())
+            return null;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Arguments:");
+        for(String arg : arguments)
+            sb.append("\n\t").append(arg);
+        sb.append('\n');
+        return sb.toString();
+    }
+
+    protected abstract List<String> getArgumentList();
 }
