@@ -1,7 +1,7 @@
 package model.vasttrafik_api;
 
-import model.vasttrafik_api.responseClasses.stationResponse.StationResponse;
-import model.vasttrafik_api.responseClasses.stationResponse.StopLocationItem;
+import model.vasttrafik_api.response_classes.station.StationResponse;
+import model.vasttrafik_api.response_classes.station.StopLocationItem;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,11 +1,11 @@
 import model.vasttrafik_api.Auth;
 import model.vasttrafik_api.StationWeight;
 import model.vasttrafik_api.TravelData;
-import model.vasttrafik_api.responseClasses.Token;
-import model.vasttrafik_api.responseClasses.name.NameResponse;
-import model.vasttrafik_api.responseClasses.trip.TripItem;
-import model.vasttrafik_api.responseClasses.trip.TripResponse;
-import model.vasttrafik_api.responseClasses.v3.token.TokenV3;
+import model.vasttrafik_api.response_classes.Token;
+import model.vasttrafik_api.response_classes.name.NameResponse;
+import model.vasttrafik_api.response_classes.trip.TripItem;
+import model.vasttrafik_api.response_classes.trip.TripResponse;
+import model.vasttrafik_api.response_classes.v3.token.TokenV3;
 
 import java.util.List;
 
