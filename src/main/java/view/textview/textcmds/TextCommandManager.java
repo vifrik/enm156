@@ -13,9 +13,10 @@ public class TextCommandManager {
         commandMap.put("help", new HelpTextCommand(textView, commandMap));
         commandMap.put("exit", new ExitTextCommand(textView));
         commandMap.put("config", new ConfigTextCommand(textView, new MockMetricManager()));
+        commandMap.put("find", new FindTextCommand(textView, new MockTripManager()));
     }
 
-    public void executeCommand(String[] words) {
+    public void executeCommand(String... words) {
         String command = words.length == 0 ? null : words[0];
         String[] arguments = words.length < 2 ? new String[0] : Arrays.copyOfRange(words, 1, words.length);
         executeCommand(command, arguments);

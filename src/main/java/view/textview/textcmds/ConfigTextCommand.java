@@ -6,7 +6,7 @@ import view.textview.TextView;
 import java.util.Objects;
 
 public class ConfigTextCommand extends TextCommand{
-    private IMetricController metricManager;
+    private final IMetricController metricManager;
 
     public ConfigTextCommand(TextView textView, IMetricController metricManager) {
         super(textView);
