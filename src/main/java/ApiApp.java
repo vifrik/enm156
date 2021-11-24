@@ -9,7 +9,7 @@ import model.vasttrafik_api.response_classes.v3.token.TokenV3;
 
 import java.util.List;
 
-public class ApiTripTest {
+public class ApiApp {
     public static String toStringOrNull(Integer n) {
         if (n == null) return null;
         return n.toString();
