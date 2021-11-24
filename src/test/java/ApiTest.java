@@ -1,21 +1,13 @@
-import VasttrafikAPI.Auth;
-import VasttrafikAPI.ResponseClasses.DepartureBoard.DepartureBoardResponse;
-import VasttrafikAPI.ResponseClasses.DepartureBoard.DepartureItem;
-import VasttrafikAPI.ResponseClasses.JourneyDetail.JourneyDetailResponse;
-import VasttrafikAPI.ResponseClasses.JourneyDetail.StopItem;
-import VasttrafikAPI.ResponseClasses.NearbyStops.LocationList;
-import VasttrafikAPI.ResponseClasses.NearbyStops.NearbyStopsResponse;
-import VasttrafikAPI.ResponseClasses.NearbyStops.StopLocationItem;
-import VasttrafikAPI.ResponseClasses.Token;
-import VasttrafikAPI.ResponseClasses.Trip.LegItem;
-import VasttrafikAPI.ResponseClasses.Trip.TripItem;
-import VasttrafikAPI.TravelData;
-import org.jgrapht.GraphPath;
-import org.jgrapht.graph.DefaultWeightedEdge;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import model.vasttrafik_api.Auth;
+import model.vasttrafik_api.responseClasses.departureBoard.DepartureBoardResponse;
+import model.vasttrafik_api.responseClasses.departureBoard.DepartureItem;
+import model.vasttrafik_api.responseClasses.journeyDetail.JourneyDetailResponse;
+import model.vasttrafik_api.responseClasses.journeyDetail.StopItem;
+import model.vasttrafik_api.responseClasses.nearbyStops.LocationList;
+import model.vasttrafik_api.responseClasses.nearbyStops.NearbyStopsResponse;
+import model.vasttrafik_api.responseClasses.nearbyStops.StopLocationItem;
+import model.vasttrafik_api.responseClasses.Token;
+import model.vasttrafik_api.TravelData;
 
 public class ApiTest {
     public static void main(String[] args) {
