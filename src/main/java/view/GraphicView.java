@@ -1,13 +1,11 @@
 package view;
 
+import controller.ITripController;
 import model.timetable.TimeTable;
 import view.textview.textcmds.MockTimeTable;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +19,8 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
     private JButton select;
     private JButton select1;
     private JSlider slider;
+
+    private ITripController tripController;
    // String locations[] = {"Chalmers", "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg","Chalmers",
      //       "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg"};
 
@@ -88,6 +88,24 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         start.setHorizontalAlignment(JLabel.CENTER);
         panel1.add(start);
 
+        JTextField textField = new JTextField();
+        textField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                System.out.println("test");
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                System.out.println("test");
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+        panel1.add(textField);
+
         //Scroll
         JScrollPane scrollPane = new JScrollPane(list1);
         scrollPane.setViewportView(list1);
@@ -131,7 +149,7 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
 
         //Slider
         slider = new JSlider(JSlider.HORIZONTAL,0,10,5);
-        slider.addChangeListener((ChangeListener) this);
+        slider.addChangeListener(this);
         slider.setMinorTickSpacing(1);
         slider.setMajorTickSpacing(2);
         slider.setPaintTicks(true);
@@ -188,5 +206,27 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
     @Override
     public void valueChanged(ListSelectionEvent e) {
        // if(e.getSource()==list1){}
+    }
+
+    class SearchBoxDocumentListener implements DocumentListener {
+        private JLabel jLabel;
+
+        public SearchBoxDocumentListener(JLabel jComponent) {
+            this.jLabel = jComponent;
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            jLabel.setText("hello world");
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+        }
     }
 }
