@@ -7,12 +7,12 @@ public class MetricController implements IMetricController {
 
     @Override
 
-    public String getMetric(Metric name) {
-        return metrics.getOrDefault(name, null);
+    public String getMetric(Metric metric) {
+        return metrics.getOrDefault(metric, null);
     }
 
     @Override
-    public void setMetric(Metric name, String value) {
-        metrics.put(name, value);
+    public void setMetric(Metric metric, String value) {
+        metrics.put(metric, value);
     }
 }
