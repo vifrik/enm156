@@ -1,7 +1,11 @@
 package view;
 
+import controller.IMetricController;
 import controller.ITripController;
+import controller.MetricController;
+import controller.TripController;
 import model.timetable.TimeTable;
+import model.vasttrafik_api.response_classes.name.NameResponse;
 import view.textview.textcmds.MockTimeTable;
 
 import javax.swing.*;
@@ -9,6 +13,7 @@ import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class GraphicView extends BaseView implements ChangeListener, ActionListener, ListSelectionListener {
     private JMenuBar menuBar;
@@ -20,12 +25,13 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
     private JButton select1;
     private JSlider slider;
 
+    private IMetricController metricController;
     private ITripController tripController;
-   // String locations[] = {"Chalmers", "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg","Chalmers",
-     //       "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg"};
 
     public GraphicView(TimeTable timeTable) {
         super(timeTable);
+        metricController = new MetricController();
+        tripController = new TripController(metricController);
     }
 
     @Override
@@ -88,26 +94,12 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         start.setHorizontalAlignment(JLabel.CENTER);
         panel1.add(start);
 
+        JScrollPane scrollPane = new JScrollPane(list1);
         JTextField textField = new JTextField();
-        textField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                System.out.println("test");
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                System.out.println("test");
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-            }
-        });
+        textField.getDocument().addDocumentListener(new SearchBoxDocumentListener(scrollPane, textField));
         panel1.add(textField);
 
         //Scroll
-        JScrollPane scrollPane = new JScrollPane(list1);
         scrollPane.setViewportView(list1);
         list1.setLayoutOrientation(JList.VERTICAL);
         panel1.add(scrollPane);
@@ -209,20 +201,30 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
     }
 
     class SearchBoxDocumentListener implements DocumentListener {
-        private JLabel jLabel;
+        private JScrollPane jScrollPane;
+        private JTextField jTextField;
 
-        public SearchBoxDocumentListener(JLabel jComponent) {
-            this.jLabel = jComponent;
+        public SearchBoxDocumentListener(JScrollPane jScrollPane, JTextField jTextField) {
+            this.jScrollPane = jScrollPane;
+            this.jTextField = jTextField;
         }
 
         @Override
         public void insertUpdate(DocumentEvent e) {
-            jLabel.setText("hello world");
+            updateList();
         }
 
         @Override
         public void removeUpdate(DocumentEvent e) {
 
+        }
+
+        private void updateList() {
+            //JList jList =
+            NameResponse nameResponse = tripController.findNames(jTextField.getText());
+            JList jList = new JList(nameResponse.getLocationList().getStopLocation().toArray());
+
+            jScrollPane.setViewportView(jList);
         }
 
         @Override
