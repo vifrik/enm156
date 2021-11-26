@@ -1,9 +1,10 @@
 package controller;
 
-import model.trip.Trip;
-
-import java.util.List;
+import model.vasttrafik_api.response_classes.name.NameResponse;
+import model.vasttrafik_api.response_classes.trip.TripResponse;
 
 public interface ITripController {
-    public Trip findTrip(String source, String destination);
+    public TripResponse findTrip(String sourceId, String destinationId);
+
+    public NameResponse findNames(String query);
 }

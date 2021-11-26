@@ -2,6 +2,8 @@ package view.textview.textcmds;
 
 import view.textview.TextView;
 
+import java.util.List;
+
 public class ExitTextCommand extends TextCommand {
     ExitTextCommand(TextView textView) {
         super(textView);
@@ -24,7 +26,7 @@ public class ExitTextCommand extends TextCommand {
     }
 
     @Override
-    protected String getArgumentSummary() {
+    protected List<String> getArgumentList() {
         return null;
     }
 }

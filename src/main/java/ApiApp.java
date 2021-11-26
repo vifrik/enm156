@@ -27,7 +27,7 @@ public class ApiApp {
 
         TripResponse tripResponse = TravelSearch.getTrip(idFrom, idTo,
                 null, null, null, null, null, null,
-                null, null, null, toStringOrNull(walkSpeed), toStringOrNull(additionalChangeTime), "20",
+                null, null, null, toStringOrNull(walkSpeed), toStringOrNull(additionalChangeTime),
                 token);
 
         tripResponse.getTripList().calculateScores();

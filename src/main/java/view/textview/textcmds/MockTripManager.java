@@ -1,11 +1,17 @@
 package view.textview.textcmds;
 
 import controller.ITripController;
-import model.trip.Trip;
+import model.vasttrafik_api.response_classes.name.NameResponse;
+import model.vasttrafik_api.response_classes.trip.TripResponse;
 
 public class MockTripManager implements ITripController {
     @Override
-    public Trip findTrip(String source, String destination) {
+    public TripResponse findTrip(String sourceId, String destinationId) {
+        return null;
+    }
+
+    @Override
+    public NameResponse findNames(String query) {
         return null;
     }
 }
