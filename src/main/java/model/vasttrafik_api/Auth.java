@@ -24,7 +24,8 @@ public class Auth {
 
     private void validate() {
         if (getSysTimeSeconds() > sysTimeSeconds + token.getExpiresIn()) {
-            token = getToken();
+            token = requestToken();
+            sysTimeSeconds = getSysTimeSeconds();
         }
     }
 
