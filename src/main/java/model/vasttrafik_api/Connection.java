@@ -6,91 +6,58 @@ import java.io.IOException;
 import java.util.Map;
 
 public class Connection {
-    public static final String SCHEME = "https";
-    public static final String HOSTNAME = "api.vasttrafik.se";
-    public static final String HOSTNAME_V3 = "www.vasttrafik.se";
-    static OkHttpClient client = new OkHttpClient().newBuilder().build();
+    private static final OkHttpClient CLIENT = new OkHttpClient().newBuilder().build();
 
-    public static HttpUrl getUrl(String api, Map<String, String> params) {
-        HttpUrl.Builder builder = new HttpUrl.Builder()
-                .scheme(SCHEME)
-                .host(HOSTNAME)
-                .addPathSegments(api)
-                .addQueryParameter("format", "json");
 
-        if (params != null) {
-            for (Map.Entry<String, String> param : params.entrySet()) {
-                builder.addQueryParameter(param.getKey(), param.getValue());
-            }
-        }
-
-        return builder.build();
-    }
-
-    public static HttpUrl getUrlV3(String api, Map<String, String> params) {
-        HttpUrl.Builder builder = new HttpUrl.Builder()
-                .scheme(SCHEME)
-                .host(HOSTNAME_V3)
-                .addPathSegments(api)
-                .addQueryParameter("format", "json");
-
-        if (params != null) {
-            for (Map.Entry<String, String> param : params.entrySet()) {
-                builder.addQueryParameter(param.getKey(), param.getValue());
-            }
-        }
-
-        return builder.build();
-    }
-
-    public static Request getRequest(HttpUrl url, String method, Map<String, String> headers, RequestBody body) {
-        okhttp3.Request.Builder builder = new okhttp3.Request.Builder()
-                .url(url)
-                .method(method, body);
-
-        if (headers != null) {
-            for (Map.Entry<String, String> header : headers.entrySet()) {
-                builder.addHeader(header.getKey(), header.getValue());
-            }
-        }
-
-        return builder.build();
-    }
-
-    public static Request getRequest(String url, String method, Map<String, String> headers, RequestBody body) {
-        okhttp3.Request.Builder builder = new okhttp3.Request.Builder()
-                .url(url)
-                .method(method, body);
-
-        if (headers != null) {
-            for (Map.Entry<String, String> header : headers.entrySet()) {
-                builder.addHeader(header.getKey(), header.getValue());
-            }
-        }
-
-        return builder.build();
-    }
-
-    public static Response sendRequest(Request request) {
+    private static Response sendRequest(Request request) {
         try {
-            return client.newCall(request).execute();
+            return CLIENT.newCall(request).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static Response sendRequest(String api, String method, Map<String, String> params, Map<String, String> headers, RequestBody body) {
-        HttpUrl httpUrl = getUrl(api, params);
-        Request request = getRequest(httpUrl, method, headers, body);
+    public static HttpUrl buildUrl(String scheme, String hostname, String pathSegments, Map<String, String> params) {
+        HttpUrl.Builder builder = new HttpUrl.Builder()
+                .scheme(scheme)
+                .host(hostname)
+                .addPathSegments(pathSegments)
+                .addQueryParameter("format", "json");
+
+        if (params != null) {
+            for (Map.Entry<String, String> param : params.entrySet()) {
+                builder.addQueryParameter(param.getKey(), param.getValue());
+            }
+        }
+
+        return builder.build();
+    }
+
+    public static Response sendRequest(String scheme, String hostname, String pathSegments, String method, Map<String,
+            String> params, Map<String, String> headers, RequestBody body, Auth auth) {
+        HttpUrl httpUrl = buildUrl(scheme, hostname, pathSegments, params);
+        Request request = buildRequest(httpUrl, method, headers, body, auth);
 
         return sendRequest(request);
     }
 
-    public static Response sendRequestV3(String api, String method, Map<String, String> params, Map<String, String> headers, RequestBody body) {
-        HttpUrl httpUrl = getUrlV3(api, params);
-        Request request = getRequest(httpUrl, method, headers, body);
+    private static Request buildRequest(HttpUrl url, String method, Map<String, String> headers,
+                                        RequestBody body, Auth auth) {
+        okhttp3.Request.Builder builder = new okhttp3.Request.Builder()
+                .url(url)
+                .method(method, body);
 
-        return sendRequest(request);
+        if (auth != null) {
+            builder.addHeader("Authorization", "Bearer " + auth.getToken().getAccessToken());
+        }
+
+        if (headers != null) {
+            for (Map.Entry<String, String> header : headers.entrySet()) {
+                builder.addHeader(header.getKey(), header.getValue());
+            }
+        }
+
+        return builder.build();
     }
 }

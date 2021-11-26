@@ -1,12 +1,12 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MetricController implements IMetricController {
-    Map<Metric, String> metrics;
+    Map<Metric, String> metrics = new HashMap<>();
 
     @Override
-
     public String getMetric(Metric metric) {
         return metrics.getOrDefault(metric, null);
     }
