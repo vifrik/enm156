@@ -10,9 +10,9 @@ import model.vasttrafik_api.response_classes.trip.TripResponse;
 import java.util.List;
 
 public class TripController implements ITripController {
-    private MetricController m;
+    private IMetricController m;
 
-    public TripController(MetricController metricController) {
+    public TripController(IMetricController metricController) {
         this.m = metricController;
     }
 
