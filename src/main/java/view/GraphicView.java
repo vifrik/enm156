@@ -6,11 +6,13 @@ import model.timetable.TimeTable;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GraphicView extends BaseView implements ChangeListener, ActionListener{
+public class GraphicView extends BaseView implements ChangeListener, ActionListener, ListSelectionListener {
     private JMenuBar menuBar;
     private JMenu menu;
     private JMenuItem m1, m2;
@@ -83,6 +85,7 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         list2.setVisibleRowCount(5);
 
         JLabel start = new JLabel("Start");
+        start.setHorizontalAlignment(JLabel.CENTER);
         panel1.add(start);
 
         //Scroll
@@ -97,12 +100,17 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
 
         //Label
         JLabel destination = new JLabel("Destination");
+        destination.setHorizontalTextPosition(JLabel.CENTER);
+        destination.setHorizontalAlignment(JLabel.CENTER);
         panel1.add(destination);
+
         //Scroll 2
         JScrollPane scrollPane2 = new JScrollPane(list2);
         scrollPane2.setViewportView(list2);
         list2.setLayoutOrientation(JList.VERTICAL);
         panel1.add(scrollPane2);
+
+        list1.addListSelectionListener(this);
 
         JButton select = new JButton("Välj");
         select.addActionListener(this);
@@ -175,5 +183,10 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
 
     public void stateChanged(ChangeEvent e){
         System.out.println("Slider set to " + slider.getValue());
+    }
+
+    @Override
+    public void valueChanged(ListSelectionEvent e) {
+       // if(e.getSource()==list1){}
     }
 }
