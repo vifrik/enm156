@@ -3,6 +3,7 @@ package view.textview.textcmds;
 import view.textview.TextView;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class HelpTextCommand extends TextCommand {
     private final HashMap<String, TextCommand> commandMap;
@@ -47,9 +48,9 @@ public class HelpTextCommand extends TextCommand {
     }
 
     @Override
-    protected String getArgumentSummary() {
-        return """
-            Arguments:
-                help [command] - Shows full description of command.""";
+    protected List<String> getArgumentList() {
+        return List.of(
+                "help [command] - Shows full description of command."
+        );
     }
 }

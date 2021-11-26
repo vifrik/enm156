@@ -1,6 +1,7 @@
 package model.vasttrafik_api;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import okhttp3.Response;
 
 import java.io.IOException;
@@ -15,6 +16,8 @@ public class JSON {
         } catch (IOException e) {
             System.err.println("Error converting to JSON object");
             e.printStackTrace();
+        } catch (JsonSyntaxException e) {
+            System.err.println("Error converting to JSON object");
         }
 
         return null;
