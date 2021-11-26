@@ -29,6 +29,7 @@ public class LocationList{
 	@SerializedName("noNamespaceSchemaLocation")
 	private String noNamespaceSchemaLocation;
 
+	@SerializedName("StopLocation")
 	@JsonAdapter(AlwaysListTypeAdapterFactory.class)
 	private List<StopLocationItem> stopLocation;
 
