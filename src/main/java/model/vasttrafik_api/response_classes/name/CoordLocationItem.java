@@ -2,7 +2,7 @@ package model.vasttrafik_api.response_classes.name;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CoordLocationItem {
+public class CoordLocationItem{
 
     @SerializedName("name")
     private String name;
@@ -10,32 +10,32 @@ public class CoordLocationItem {
     @SerializedName("lon")
     private String lon;
 
-    @SerializedName("type")
-    private String type;
-
     @SerializedName("idx")
     private String idx;
+
+    @SerializedName("type")
+    private String type;
 
     @SerializedName("lat")
     private String lat;
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public String getLon() {
+    public String getLon(){
         return lon;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public String getIdx() {
+    public String getIdx(){
         return idx;
     }
 
-    public String getLat() {
+    public String getType(){
+        return type;
+    }
+
+    public String getLat(){
         return lat;
     }
 }

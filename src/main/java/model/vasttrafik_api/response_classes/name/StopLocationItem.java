@@ -2,10 +2,13 @@ package model.vasttrafik_api.response_classes.name;
 
 import com.google.gson.annotations.SerializedName;
 
-public class StopLocationItem {
+public class StopLocationItem{
 
     @SerializedName("name")
     private String name;
+
+    @SerializedName("weight")
+    private String weight;
 
     @SerializedName("lon")
     private String lon;
@@ -16,26 +19,37 @@ public class StopLocationItem {
     @SerializedName("idx")
     private String idx;
 
+    @SerializedName("track")
+    private String track;
+
     @SerializedName("lat")
     private String lat;
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public String getLon() {
+    public String getWeight(){
+        return weight;
+    }
+
+    public String getLon(){
         return lon;
     }
 
-    public String getId() {
+    public String getId(){
         return id;
     }
 
-    public String getIdx() {
+    public String getIdx(){
         return idx;
     }
 
-    public String getLat() {
+    public String getTrack(){
+        return track;
+    }
+
+    public String getLat(){
         return lat;
     }
 }

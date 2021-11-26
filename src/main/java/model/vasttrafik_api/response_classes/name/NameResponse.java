@@ -1,13 +1,56 @@
 package model.vasttrafik_api.response_classes.name;
 
+import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class NameResponse {
+public class NameResponse{
 
-    @SerializedName("LocationList")
-    private LocationList locationList;
+    @SerializedName("serverdate")
+    private String serverdate;
 
-    public LocationList getLocationList() {
-        return locationList;
+    @SerializedName("errorText")
+    private String errorText;
+
+    @SerializedName("servertime")
+    private String servertime;
+
+    @SerializedName("StopLocation")
+    private List<StopLocationItem> stopLocation;
+
+    @SerializedName("noNamespaceSchemaLocation")
+    private String noNamespaceSchemaLocation;
+
+    @SerializedName("error")
+    private String error;
+
+    @SerializedName("CoordLocation")
+    private List<CoordLocationItem> coordLocation;
+
+    public String getServerdate(){
+        return serverdate;
+    }
+
+    public String getErrorText(){
+        return errorText;
+    }
+
+    public String getServertime(){
+        return servertime;
+    }
+
+    public List<StopLocationItem> getStopLocation(){
+        return stopLocation;
+    }
+
+    public String getNoNamespaceSchemaLocation(){
+        return noNamespaceSchemaLocation;
+    }
+
+    public String getError(){
+        return error;
+    }
+
+    public List<CoordLocationItem> getCoordLocation(){
+        return coordLocation;
     }
 }
