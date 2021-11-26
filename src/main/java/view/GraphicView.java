@@ -1,7 +1,7 @@
 package view;
 
-import model.timetable.MockTimeTable;
 import model.timetable.TimeTable;
+import view.textview.textcmds.MockTimeTable;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
