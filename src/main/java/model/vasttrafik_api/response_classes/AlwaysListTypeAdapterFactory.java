@@ -54,8 +54,7 @@ public final class AlwaysListTypeAdapterFactory<E> implements TypeAdapterFactory
         }
 
         @Override
-        public List<E> read(JsonReader in)
-                throws IOException {
+        public List<E> read(JsonReader in) throws IOException {
             final List<E> list = new ArrayList<>();
             final JsonToken token = in.peek();
             switch (token) {
