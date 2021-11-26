@@ -1,6 +1,7 @@
 package controller;
 
 public interface IMetricController {
-    public String getMetric(String name);
-    void setValue(String name, String value);
+    public String getMetric(Metric name);
+
+    void setMetric(Metric name, String value);
 }

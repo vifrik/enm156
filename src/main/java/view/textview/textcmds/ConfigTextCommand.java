@@ -1,12 +1,13 @@
 package view.textview.textcmds;
 
 import controller.IMetricController;
+import controller.Metric;
 import view.textview.TextView;
 
 import java.util.List;
 import java.util.Objects;
 
-public class ConfigTextCommand extends TextCommand{
+public class ConfigTextCommand extends TextCommand {
     private final IMetricController metricManager;
 
     public ConfigTextCommand(TextView textView, IMetricController metricManager) {
@@ -23,9 +24,8 @@ public class ConfigTextCommand extends TextCommand{
         if (arguments.length == 0)
             printFullDescription();
 
-        else if (Objects.equals(arguments[0], "metric")) {
+        else if (Objects.equals(arguments[0], "metric"))
             parseMetricsArguments(arguments);
-        }
 
         else printUnrecognizedArguments(arguments);
     }
@@ -46,11 +46,13 @@ public class ConfigTextCommand extends TextCommand{
     }
 
     private void setValueOfMetricWithName(String name, String value) {
-        metricManager.setValue(name, value);
+        Metric metric = parseMetric(name);
+        metricManager.setMetric(metric, value);
     }
 
     private void displayMetricWithName(String name) {
-        printMessage(metricManager.getMetric(name));
+        Metric metric = parseMetric(name);
+        printMessage(metricManager.getMetric(metric));
     }
 
     @Override
@@ -64,5 +66,12 @@ public class ConfigTextCommand extends TextCommand{
                 "metric [name] - View the value of the given metric.",
                 "metric [name] [value] - Set the value of the given metric."
         );
+    }
+
+    private Metric parseMetric(String name) {
+        return switch (name) {
+            case "max-walk-dist" -> Metric.MAX_WALK_DISTANCE;
+            default -> null;
+        };
     }
 }
