@@ -34,6 +34,7 @@ public class LocationList{
 	private List<StopLocationItem> stopLocation;
 
 	@SerializedName("CoordLocation")
+	@JsonAdapter(AlwaysListTypeAdapterFactory.class)
 	private List<CoordLocationItem> coordLocation;
 
 	public String getServerdate(){
