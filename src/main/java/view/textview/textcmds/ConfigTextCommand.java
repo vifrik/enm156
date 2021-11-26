@@ -5,7 +5,7 @@ import view.textview.TextView;
 
 import java.util.Objects;
 
-public class ConfigTextCommand extends TextCommand{
+public class ConfigTextCommand extends TextCommand {
     private final IMetricController metricManager;
 
     public ConfigTextCommand(TextView textView, IMetricController metricManager) {
@@ -24,9 +24,7 @@ public class ConfigTextCommand extends TextCommand{
 
         else if (Objects.equals(arguments[0], "metric")) {
             parseMetricsArguments(arguments);
-        }
-
-        else printUnrecognizedArguments(arguments);
+        } else printUnrecognizedArguments(arguments);
     }
 
     private void parseMetricsArguments(String[] arguments) {
@@ -45,7 +43,7 @@ public class ConfigTextCommand extends TextCommand{
     }
 
     private void setValueOfMetricWithName(String name, String value) {
-        metricManager.setValue(name, value);
+        metricManager.setMetric(name, value);
     }
 
     private void displayMetricWithName(String name) {
@@ -60,8 +58,8 @@ public class ConfigTextCommand extends TextCommand{
     @Override
     protected String getArgumentSummary() {
         return """
-            Arguments:
-                metric [name] - View the value of the given metric.
-                metric [name] [value] - Set the value of the given metric.""";
+                Arguments:
+                    metric [name] - View the value of the given metric.
+                    metric [name] [value] - Set the value of the given metric.""";
     }
 }

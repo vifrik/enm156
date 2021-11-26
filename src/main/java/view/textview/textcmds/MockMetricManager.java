@@ -9,7 +9,7 @@ public class MockMetricManager implements IMetricController {
     }
 
     @Override
-    public void setValue(String name, String value) {
+    public void setMetric(String name, String value) {
         System.out.printf("Set value of %s to %s\n", name, value);
     }
 }

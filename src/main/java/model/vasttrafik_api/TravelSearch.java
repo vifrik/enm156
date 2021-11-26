@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 public class TravelSearch {
+    private static final String NUM_TRIPS = "20";
+
     public static NearbyStopsResponse getNearbyStations(double lon, double lat, Token token) {
         Map<String, String> auth = new HashMap<>();
         auth.put("Authorization", "Bearer " + token.getAccessToken());
@@ -62,7 +64,7 @@ public class TravelSearch {
                                        String strollerSpace, String lowFloor,
                                        String rampOrLift, String maxWalkDist,
                                        String walkSpeed, String additionalChangeTime,
-                                       String numTrips, Token token) {
+                                       Token token) {
         Map<String, String> auth = new HashMap<>();
         auth.put("Authorization", "Bearer " + token.getAccessToken());
 
@@ -80,7 +82,7 @@ public class TravelSearch {
         params.put("maxWalkDist", maxWalkDist);
         params.put("walkSpeed", walkSpeed);
         params.put("additionalChangeTime", additionalChangeTime);
-        params.put("numTrips", numTrips);
+        params.put("numTrips", NUM_TRIPS);
 
         Response response = Connection.sendRequest("bin/rest.exe/v2/trip", "GET", params, auth, null);
 
