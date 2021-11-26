@@ -11,7 +11,7 @@ public class NewWindow {
         //Label
         label.setText("Välkommen");
         label.setBounds(0,100,500,250);
-        label.setFont(new Font(null, Font.PLAIN,25));
+        label.setFont(new Font(null, Font.BOLD,25));
         label.setHorizontalTextPosition(JLabel.CENTER);
         label.setVerticalAlignment(JLabel.CENTER);
         label.setHorizontalAlignment(JLabel.CENTER);
@@ -26,6 +26,7 @@ public class NewWindow {
         frame.setIconImage(image.getImage());
         frame.setSize(500,500);
         frame.setLayout(null);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
     }

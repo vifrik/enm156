@@ -16,11 +16,11 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
     private JMenuItem m1, m2;
     private JFrame frame;
     private JButton button;
+    private JButton select;
+    private JButton select1;
     private JSlider slider;
-    private JLabel label;
-    static final int min = 0;
-    static final int max = 10;
-    static final int start = 5;
+   // String locations[] = {"Chalmers", "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg","Chalmers",
+     //       "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg"};
 
     public GraphicView(TimeTable timeTable) {
         super(timeTable);
@@ -51,25 +51,62 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         ImageIcon image = new ImageIcon("buss.png");
         frame.setIconImage(image.getImage());
 
-        //Menu
-        JMenuItem i1,i2,i3;
-        menuBar = new JMenuBar();
-        menu = new JMenu("Menu");
-        i1 = new JMenuItem("1");
-        i2 = new JMenuItem("2");
-        i3 = new JMenuItem("3");
-        menu.add(i1); menu.add(i2); menu.add(i3);
-        menuBar.add(menu);
-        frame.setJMenuBar(menuBar);
-        frame.add(menuBar);
-
         //Panel
-        JPanel panel1 = new JPanel();
-        panel1.setPreferredSize(new Dimension(400,150));
+        JPanel panel1 = new JPanel(new BorderLayout());
+        panel1.setPreferredSize(new Dimension(420,500));
         panel1.setBackground(Color.green);
         panel1.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
         panel1.setLayout(new GridLayout(0,1));
         frame.add(panel1, BorderLayout.CENTER);
+
+
+        String[] locations = new String[10];
+        locations[0] = "Chalmers";
+        locations[1] = "Lindholmen";
+        locations[2] = "Korsvägen";
+        locations[3] = "Brunnsparken";
+        locations[4] = "Frölundatorg";
+        locations[5] = "Chalmers";
+        locations[6] = "Lindholmen";
+        locations[7] = "Korsvägen";
+        locations[8] = "Brunnsparken";
+        locations[9] = "Frölundatorg";
+
+
+
+        //Start
+        JList list1 = new JList(locations);
+        list1.setVisibleRowCount(5);
+
+        //Destination
+        JList list2 = new JList(locations);
+        list2.setVisibleRowCount(5);
+
+        JLabel start = new JLabel("Start");
+        panel1.add(start);
+
+        //Scroll
+        JScrollPane scrollPane = new JScrollPane(list1);
+        scrollPane.setViewportView(list1);
+        list1.setLayoutOrientation(JList.VERTICAL);
+        panel1.add(scrollPane);
+
+        JButton select1 = new JButton("Välj");
+        select1.addActionListener(this);
+        panel1.add(select1);
+
+        //Label
+        JLabel destination = new JLabel("Destination");
+        panel1.add(destination);
+        //Scroll 2
+        JScrollPane scrollPane2 = new JScrollPane(list2);
+        scrollPane2.setViewportView(list2);
+        list2.setLayoutOrientation(JList.VERTICAL);
+        panel1.add(scrollPane2);
+
+        JButton select = new JButton("Välj");
+        select.addActionListener(this);
+        panel1.add(select);
 
         //Panel 2
         JPanel panel2 = new JPanel();
@@ -78,14 +115,14 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         frame.add(panel2, BorderLayout.AFTER_LAST_LINE);
 
         //Label
-        label = new JLabel("Välj din säkerhets faktor");
+        JLabel label = new JLabel("Välj din säkerhets faktor");
         label.setHorizontalTextPosition(JLabel.CENTER);
         label.setVerticalAlignment(JLabel.CENTER);
         label.setHorizontalAlignment(JLabel.CENTER);
         panel1.add(label);
 
         //Slider
-        slider = new JSlider(JSlider.HORIZONTAL,min,max,start);
+        slider = new JSlider(JSlider.HORIZONTAL,0,10,5);
         slider.addChangeListener((ChangeListener) this);
         slider.setMinorTickSpacing(1);
         slider.setMajorTickSpacing(2);
@@ -103,6 +140,7 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
     private void sizeFrame() {
         frame.setSize(400, 400);
         frame.pack();
+        frame.setLocationRelativeTo(null);
     }
 
     private void showFrame() {
@@ -131,6 +169,8 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
             System.out.println("Button pressed");
             NewWindow myWindow = new NewWindow();
         }
+
+
     }
 
     public void stateChanged(ChangeEvent e){
