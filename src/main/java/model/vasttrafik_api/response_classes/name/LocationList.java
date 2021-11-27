@@ -29,10 +29,12 @@ public class LocationList{
 	@SerializedName("noNamespaceSchemaLocation")
 	private String noNamespaceSchemaLocation;
 
+	@SerializedName("StopLocation")
 	@JsonAdapter(AlwaysListTypeAdapterFactory.class)
 	private List<StopLocationItem> stopLocation;
 
 	@SerializedName("CoordLocation")
+	@JsonAdapter(AlwaysListTypeAdapterFactory.class)
 	private List<CoordLocationItem> coordLocation;
 
 	public String getServerdate(){

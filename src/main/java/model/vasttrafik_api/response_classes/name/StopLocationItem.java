@@ -38,4 +38,9 @@ public class StopLocationItem{
 	public String getLat(){
 		return lat;
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }
