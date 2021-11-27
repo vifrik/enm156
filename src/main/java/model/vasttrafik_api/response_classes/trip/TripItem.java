@@ -1,7 +1,9 @@
 package model.vasttrafik_api.response_classes.trip;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import model.vasttrafik_api.StationWeight;
+import model.vasttrafik_api.response_classes.AlwaysListTypeAdapterFactory;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,10 +14,13 @@ import java.util.List;
 
 public class TripItem {
     @SerializedName("Leg")
+    @JsonAdapter(AlwaysListTypeAdapterFactory.class)
     private List<LegItem> leg;
-    private double score;
+
     @SerializedName("alternative")
     private String alternative;
+
+    private double score;
 
     @Override
     public String toString() {
