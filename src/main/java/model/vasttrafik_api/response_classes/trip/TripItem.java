@@ -27,10 +27,6 @@ public class TripItem {
         StringBuilder sb = new StringBuilder();
         sb.append(score);
         sb.append("\n");
-        sb.append("Time: ").append(getTimeScore());
-        sb.append("\n");
-        sb.append("Weight: ").append(getWeightScore());
-        sb.append("\n");
         for (LegItem l : leg) {
             sb.append(l);
             sb.append("\n");
@@ -66,12 +62,12 @@ public class TripItem {
         return (arrival.getTime() - System.currentTimeMillis()) / 1000.0;
     }
 
-    public double getWeightScore() {
+    public double getWeightScore(StationWeight stationWeight) {
         double weight = 0;
 
         for (LegItem l : leg) {
             String dest = l.getDestination().getName();
-            double weightContribution = Math.log(StationWeight.weights.get(dest)) / Math.log(2);
+            double weightContribution = Math.log(stationWeight.getWeights().get(dest)) / Math.log(2);
             weight += weightContribution;
         }
 
