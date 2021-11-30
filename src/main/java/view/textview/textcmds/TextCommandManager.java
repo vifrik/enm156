@@ -1,19 +1,24 @@
 package view.textview.textcmds;
 
+import controller.IMetricController;
+import controller.MetricController;
+import controller.TripController;
 import view.textview.TextView;
 
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class TextCommandManager {
+    private final IMetricController metricController;
     private final HashMap<String, TextCommand> commandMap;
 
     public TextCommandManager(TextView textView) {
+        metricController = new MetricController();
         commandMap = new HashMap<>();
         commandMap.put("help", new HelpTextCommand(textView, commandMap));
         commandMap.put("exit", new ExitTextCommand(textView));
-        commandMap.put("config", new ConfigTextCommand(textView, new MockMetricManager()));
-        commandMap.put("find", new FindTextCommand(textView, new MockTripManager()));
+        commandMap.put("config", new ConfigTextCommand(textView, metricController));
+        commandMap.put("find", new FindTextCommand(textView, new TripController(metricController)));
     }
 
     public void executeCommand(String... words) {

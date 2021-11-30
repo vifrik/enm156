@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class StationWeight {
-    public static final Map<String, Integer> weights = new HashMap<>();
+    private Map<String, Integer> weights = new HashMap<>();
 
-    public static void setup() {
+    public StationWeight() {
         try {
             String stationsJson = Files.readString(Path.of("data/stations.json"));
             StationResponse stationResponse = JSON.objFromJson(stationsJson, StationResponse.class);

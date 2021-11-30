@@ -1,6 +1,7 @@
 package view.textview.textcmds;
 
 import controller.ITripController;
+import model.vasttrafik_api.response_classes.name.NameResponse;
 import model.vasttrafik_api.response_classes.trip.TripResponse;
 import view.textview.TextView;
 
@@ -57,7 +58,18 @@ public class FindTextCommand extends TextCommand {
     }
 
     private void findAndPrintTrip(String source, String destination) {
-        TripResponse trip = tripController.findTrip(source, destination);
+        NameResponse nameResponseSource = tripController.findNames(source);
+        NameResponse nameResponseDestination = tripController.findNames(destination);
+
+        if (nameResponseSource.getLocationList() == null || nameResponseDestination.getLocationList() == null) {
+            printMessage("No stations matching queries %s or %s".formatted(source, destination));
+            return;
+        }
+
+        TripResponse trip = tripController.findTrip(
+                nameResponseSource.getLocationList().getStopLocation().get(0).getId(),
+                nameResponseDestination.getLocationList().getStopLocation().get(0).getId());
+
         if (trip == null)
             printMessage("No trip found from %s to %s".formatted(source, destination));
         else

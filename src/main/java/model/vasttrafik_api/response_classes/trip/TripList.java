@@ -1,6 +1,9 @@
 package model.vasttrafik_api.response_classes.trip;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import model.vasttrafik_api.StationWeight;
+import model.vasttrafik_api.response_classes.AlwaysListTypeAdapterFactory;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -12,6 +15,7 @@ public class TripList {
     private String serverdate;
 
     @SerializedName("Trip")
+    @JsonAdapter(AlwaysListTypeAdapterFactory.class)
     private List<TripItem> trips;
 
     @SerializedName("servertime")
@@ -37,13 +41,14 @@ public class TripList {
     }
 
     public void calculateScores() {
+        StationWeight stationWeight = new StationWeight();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         for (TripItem trip : trips) {
             double score = 0;
 
             score += trip.getTimeScore() / 60;
-            score += trip.getWeightScore();
+            score += trip.getWeightScore(stationWeight);
             score += trip.getNofStops() * 6;
 
             trip.setScore(score);

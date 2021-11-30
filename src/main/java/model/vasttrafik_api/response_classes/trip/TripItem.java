@@ -1,7 +1,9 @@
 package model.vasttrafik_api.response_classes.trip;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import model.vasttrafik_api.StationWeight;
+import model.vasttrafik_api.response_classes.AlwaysListTypeAdapterFactory;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,19 +14,18 @@ import java.util.List;
 
 public class TripItem {
     @SerializedName("Leg")
+    @JsonAdapter(AlwaysListTypeAdapterFactory.class)
     private List<LegItem> leg;
-    private double score;
+
     @SerializedName("alternative")
     private String alternative;
+
+    private double score;
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(score);
-        sb.append("\n");
-        sb.append("Time: ").append(getTimeScore());
-        sb.append("\n");
-        sb.append("Weight: ").append(getWeightScore());
         sb.append("\n");
         for (LegItem l : leg) {
             sb.append(l);
@@ -61,12 +62,12 @@ public class TripItem {
         return (arrival.getTime() - System.currentTimeMillis()) / 1000.0;
     }
 
-    public double getWeightScore() {
+    public double getWeightScore(StationWeight stationWeight) {
         double weight = 0;
 
         for (LegItem l : leg) {
             String dest = l.getDestination().getName();
-            double weightContribution = Math.log(StationWeight.weights.get(dest)) / Math.log(2);
+            double weightContribution = Math.log(stationWeight.getWeights().get(dest)) / Math.log(2);
             weight += weightContribution;
         }
 
