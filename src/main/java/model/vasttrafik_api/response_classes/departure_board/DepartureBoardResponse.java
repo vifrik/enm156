@@ -10,4 +10,9 @@ public class DepartureBoardResponse {
     public DepartureBoard getDepartureBoard() {
         return departureBoard;
     }
+
+    @Override
+    public String toString() {
+        return departureBoard.toString();
+    }
 }

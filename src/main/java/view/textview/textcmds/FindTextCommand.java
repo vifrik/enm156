@@ -67,7 +67,7 @@ public class FindTextCommand extends TextCommand {
             case 1 -> printFullDescription();
             case 2 -> {
                 String station = arguments[1];
-
+                findAndPrintDepartures(station);
             }
             default -> printMessage("Too many arguments.");
         }

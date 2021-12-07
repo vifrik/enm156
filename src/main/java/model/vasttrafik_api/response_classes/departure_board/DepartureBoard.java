@@ -36,4 +36,14 @@ public class DepartureBoard {
     public String getNoNamespaceSchemaLocation() {
         return noNamespaceSchemaLocation;
     }
+
+    @Override
+    public String toString() {
+        return "DepartureBoard{" +
+                "serverdate='" + serverdate + '\'' +
+                ", departures=" + departures +
+                ", servertime='" + servertime + '\'' +
+                ", noNamespaceSchemaLocation='" + noNamespaceSchemaLocation + '\'' +
+                '}';
+    }
 }

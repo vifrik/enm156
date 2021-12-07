@@ -1,10 +1,9 @@
 import model.graph.SpaceTimeGraph;
 import model.graph.TravelData;
 import utility.FileReader;
-import view.textview.textcmds.MockTimeTable;
-import model.timetable.TimeTable;
-import view.textview.TextView;
 import view.BaseView;
+import view.textview.TextView;
+
 import java.util.ArrayList;
 
 public final class App {
@@ -15,11 +14,16 @@ public final class App {
             startGraph();
     }
 
-    public App() {this(true);}
+    public App() {
+        this(true);
+    }
+
+    public static void main(String[] args) {
+        new App();
+    }
 
     private void startConsole() {
-        TimeTable timeTable = new MockTimeTable();
-        BaseView userInterface = new TextView(timeTable);
+        BaseView userInterface = new TextView();
         userInterface.start();
     }
 
@@ -34,9 +38,5 @@ public final class App {
 
         stGraph.PrintPaths(paths);
         stGraph.DrawGraph();
-    }
-
-    public static void main(String[] args) {
-        new App();
     }
 }

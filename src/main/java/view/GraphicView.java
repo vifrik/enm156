@@ -1,8 +1,5 @@
 package view;
 
-import model.timetable.TimeTable;
-import view.textview.textcmds.MockTimeTable;
-
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
@@ -10,19 +7,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GraphicView extends BaseView implements ChangeListener, ActionListener, ListSelectionListener, DocumentListener {
+    JOptionPane optionPane;
+    JTextField textField;
     private JFrame frame;
     private JButton button;
     private JButton select;
     private JButton select1;
     private JSlider slider;
-    JOptionPane optionPane;
-    JTextField textField;
 
-   // String locations[] = {"Chalmers", "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg","Chalmers",
-     //       "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg"};
+    // String locations[] = {"Chalmers", "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg","Chalmers",
+    //       "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg"};
 
-    public GraphicView(TimeTable timeTable) {
-        super(timeTable);
+    public GraphicView() {
+        super();
+    }
+
+    public static void main(String[] args) {
+        BaseView userInterface = new GraphicView();
+        userInterface.start();
     }
 
     @Override
@@ -53,10 +55,10 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
 
         //Panel
         JPanel panel1 = new JPanel(new BorderLayout());
-        panel1.setPreferredSize(new Dimension(420,500));
+        panel1.setPreferredSize(new Dimension(420, 500));
         panel1.setBackground(Color.green);
-        panel1.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
-        panel1.setLayout(new GridLayout(0,1));
+        panel1.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        panel1.setLayout(new GridLayout(0, 1));
         frame.add(panel1, BorderLayout.CENTER);
 
 
@@ -71,8 +73,6 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         locations[7] = "Korsvägen";
         locations[8] = "Brunnsparken";
         locations[9] = "Frölundatorg";
-
-
 
 
         //Start
@@ -132,7 +132,7 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
 
         //Panel 2
         JPanel panel2 = new JPanel();
-        panel2.setPreferredSize(new Dimension(0,50));
+        panel2.setPreferredSize(new Dimension(0, 50));
         panel2.setBackground(Color.BLUE);
         frame.add(panel2, BorderLayout.AFTER_LAST_LINE);
 
@@ -170,32 +170,27 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
     protected void cleanup() {
 
     }
-    public static void main(String[] args){
-        TimeTable timeTable = new MockTimeTable();
-        BaseView userInterface = new GraphicView(timeTable);
-        userInterface.start();
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==button){
+        if (e.getSource() == button) {
             frame.dispose();
             System.out.println("Button pressed");
             NewWindow myWindow = new NewWindow();
         }
-        if(e.getSource()==select){
+        if (e.getSource() == select) {
             String text = textField.getText();
             System.out.println(text);
 
         }
-        if(e.getSource()==select1){
+        if (e.getSource() == select1) {
             String text = textField.getText();
             System.out.println(text);
         }
 
     }
 
-    public void stateChanged(ChangeEvent e){
+    public void stateChanged(ChangeEvent e) {
         System.out.println("Slider set to " + slider.getValue());
     }
 
@@ -203,14 +198,17 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
     public void valueChanged(ListSelectionEvent e) {
 
     }
+
     @Override
     public void insertUpdate(DocumentEvent e) {
 
     }
+
     @Override
     public void removeUpdate(DocumentEvent e) {
 
     }
+
     @Override
     public void changedUpdate(DocumentEvent e) {
 
