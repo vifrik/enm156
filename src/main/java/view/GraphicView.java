@@ -4,23 +4,20 @@ import model.timetable.TimeTable;
 import view.textview.textcmds.MockTimeTable;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GraphicView extends BaseView implements ChangeListener, ActionListener, ListSelectionListener {
-    private JMenuBar menuBar;
-    private JMenu menu;
-    private JMenuItem m1, m2;
+public class GraphicView extends BaseView implements ChangeListener, ActionListener, ListSelectionListener, DocumentListener {
     private JFrame frame;
     private JButton button;
     private JButton select;
     private JButton select1;
     private JSlider slider;
+    JOptionPane optionPane;
+    JTextField textField;
+
    // String locations[] = {"Chalmers", "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg","Chalmers",
      //       "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg"};
 
@@ -35,6 +32,7 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         setupFrameComponents();
         sizeFrame();
         showFrame();
+        JTextField textField;
     }
 
     private void createFrame() {
@@ -76,6 +74,7 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
 
 
 
+
         //Start
         JList list1 = new JList(locations);
         list1.setVisibleRowCount(5);
@@ -88,12 +87,19 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         start.setHorizontalAlignment(JLabel.CENTER);
         panel1.add(start);
 
+        //Textfield 1
+        JTextField textField = new JTextField();
+        textField.addActionListener(this);
+        textField.getDocument().addDocumentListener(this);
+        panel1.add(textField);
+
+        /*
         //Scroll
         JScrollPane scrollPane = new JScrollPane(list1);
         scrollPane.setViewportView(list1);
         list1.setLayoutOrientation(JList.VERTICAL);
         panel1.add(scrollPane);
-
+*/
         JButton select1 = new JButton("Välj");
         select1.addActionListener(this);
         panel1.add(select1);
@@ -104,11 +110,19 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         destination.setHorizontalAlignment(JLabel.CENTER);
         panel1.add(destination);
 
+
+/*
         //Scroll 2
         JScrollPane scrollPane2 = new JScrollPane(list2);
         scrollPane2.setViewportView(list2);
         list2.setLayoutOrientation(JList.VERTICAL);
         panel1.add(scrollPane2);
+
+ */
+
+        //Textfield 2
+        JTextField textField2 = new JTextField();
+        panel1.add(textField2);
 
         list1.addListSelectionListener(this);
 
@@ -129,14 +143,6 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         label.setHorizontalAlignment(JLabel.CENTER);
         panel1.add(label);
 
-        //Slider
-        slider = new JSlider(JSlider.HORIZONTAL,0,10,5);
-        slider.addChangeListener((ChangeListener) this);
-        slider.setMinorTickSpacing(1);
-        slider.setMajorTickSpacing(2);
-        slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
-        panel1.add(slider);
 
         //button
         button = new JButton("Sök");
@@ -177,7 +183,15 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
             System.out.println("Button pressed");
             NewWindow myWindow = new NewWindow();
         }
+        if(e.getSource()==select){
+            String text = textField.getText();
+            System.out.println(text);
 
+        }
+        if(e.getSource()==select1){
+            String text = textField.getText();
+            System.out.println(text);
+        }
 
     }
 
@@ -187,6 +201,18 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-       // if(e.getSource()==list1){}
+
+    }
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+
+    }
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+
+    }
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+
     }
 }
