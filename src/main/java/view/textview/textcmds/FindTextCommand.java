@@ -11,6 +11,8 @@ import java.util.Objects;
 
 public class FindTextCommand extends TextCommand {
     private final ITripController tripController;
+    private TripResponse tripResponse;
+    private String lastDestinationId;
 
     public FindTextCommand(TextView textView, ITripController tripController) {
         super(textView);
@@ -45,8 +47,42 @@ public class FindTextCommand extends TextCommand {
         else if (Objects.equals(arguments[0], "departures"))
             parseDeparturesArgumnents(arguments);
 
+        else if (Objects.equals(arguments[0], "cont"))
+            parseContArgumnents(arguments);
+
         else
             printUnrecognizedArguments(arguments);
+    }
+
+    private void parseContArgumnents(String... arguments) {
+        if (lastDestinationId == null || tripResponse == null) {
+            printMessage("No last trip search found! See help");
+            return;
+        }
+        switch (arguments.length) {
+            case 1, 2 -> printMessage("Too few arguments.");
+            case 3 -> {
+                try {
+                    int journeyIndex = Integer.parseInt(arguments[1]);
+                    int fromStationIndex = Integer.parseInt(arguments[2]);
+
+                    try {
+                        findAndPrintTripId(
+                                tripResponse.getTripList().getTrips().get(journeyIndex).getLeg()
+                                        .get(fromStationIndex).getOrigin().getId(),
+                                lastDestinationId
+                        );
+                    } catch (IllegalArgumentException e) {
+                        printMessage(e.getMessage());
+                    }
+
+                } catch (NumberFormatException e) {
+                    System.out.printf("Invalid input %s or %s%n", arguments[1], arguments[2]);
+                }
+            }
+            default -> printMessage("Too many arguments.");
+        }
+
     }
 
     private void parseTripArguments(String... arguments) {
@@ -73,6 +109,18 @@ public class FindTextCommand extends TextCommand {
         }
     }
 
+    private void findAndPrintTripId(String sourceId, String destinationId) throws IllegalArgumentException {
+        TripResponse trip = tripController.findTrip(sourceId, destinationId);
+
+        this.tripResponse = trip;
+        this.lastDestinationId = destinationId;
+
+        if (trip == null)
+            throw new IllegalArgumentException("No trip found matching query");
+        else
+            printTrip(trip);
+    }
+
     private void findAndPrintTrip(String source, String destination) {
         NameResponse nameResponseSource = tripController.findNames(source);
         NameResponse nameResponseDestination = tripController.findNames(destination);
@@ -82,14 +130,14 @@ public class FindTextCommand extends TextCommand {
             return;
         }
 
-        TripResponse trip = tripController.findTrip(
-                nameResponseSource.getLocationList().getStopLocation().get(0).getId(),
-                nameResponseDestination.getLocationList().getStopLocation().get(0).getId());
-
-        if (trip == null)
-            printMessage("No trip found from %s to %s".formatted(source, destination));
-        else
-            printTrip(trip);
+        try {
+            findAndPrintTripId(
+                    nameResponseSource.getLocationList().getStopLocation().get(0).getId(),
+                    nameResponseDestination.getLocationList().getStopLocation().get(0).getId()
+            );
+        } catch (IllegalArgumentException e) {
+            printMessage(e.getMessage());
+        }
     }
 
     private void printTrip(TripResponse trip) {
