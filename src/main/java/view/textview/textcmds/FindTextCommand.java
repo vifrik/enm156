@@ -1,6 +1,7 @@
 package view.textview.textcmds;
 
 import controller.ITripController;
+import model.vasttrafik_api.response_classes.departure_board.DepartureBoardResponse;
 import model.vasttrafik_api.response_classes.name.NameResponse;
 import model.vasttrafik_api.response_classes.trip.TripResponse;
 import view.textview.TextView;
@@ -29,7 +30,8 @@ public class FindTextCommand extends TextCommand {
     @Override
     protected List<String> getArgumentList() {
         return List.of(
-                "trip [source] [destination] - Find the best trip going from source to destination using given metrics."
+                "trip [source] [destination] - Find the best trip going from source to destination using given metrics.",
+                "departures [source] - Find departures from source."
         );
     }
 
@@ -39,6 +41,9 @@ public class FindTextCommand extends TextCommand {
 
         else if (Objects.equals(arguments[0], "trip"))
             parseTripArguments(arguments);
+
+        else if (Objects.equals(arguments[0], "departures"))
+            parseDeparturesArgumnents(arguments);
 
         else
             printUnrecognizedArguments(arguments);
@@ -52,6 +57,17 @@ public class FindTextCommand extends TextCommand {
                 String source = arguments[1];
                 String destination = arguments[2];
                 findAndPrintTrip(source, destination);
+            }
+            default -> printMessage("Too many arguments.");
+        }
+    }
+
+    private void parseDeparturesArgumnents(String... arguments) {
+        switch (arguments.length) {
+            case 1 -> printFullDescription();
+            case 2 -> {
+                String station = arguments[1];
+
             }
             default -> printMessage("Too many arguments.");
         }
@@ -78,5 +94,24 @@ public class FindTextCommand extends TextCommand {
 
     private void printTrip(TripResponse trip) {
         System.out.println(trip);
+    }
+
+    private void findAndPrintDepartures(String station) {
+        NameResponse nameResponseStation = tripController.findNames(station);
+
+        if (nameResponseStation.getLocationList() == null) {
+            printMessage("No station matching query %s".formatted(station));
+            return;
+        }
+
+        DepartureBoardResponse departureBoardResponse = tripController.findDepartures(
+                nameResponseStation.getLocationList().getStopLocation().get(0).getId()
+        );
+
+        printDepartures(departureBoardResponse);
+    }
+
+    private void printDepartures(DepartureBoardResponse departureBoardResponse) {
+        System.out.println(departureBoardResponse);
     }
 }
