@@ -11,19 +11,20 @@ import java.awt.event.ActionListener;
 
 public class GraphicView extends BaseView implements ChangeListener, ActionListener, ListSelectionListener, DocumentListener {
     private JFrame frame;
-    private JButton button;
-    private JButton select;
-    private JButton select1;
+    private JButton button, select, select1;
+    JButton filter;
     private JSlider slider;
     JOptionPane optionPane;
     JTextField textField;
-
-   // String locations[] = {"Chalmers", "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg","Chalmers",
-     //       "Lindholmen", "Korsvägen", "Brunnsparken", "Frölundatorg"};
+    JMenuBar menuBar;
+    JMenu menu;
+    JMenuItem menuItem;
 
     public GraphicView(TimeTable timeTable) {
         super(timeTable);
     }
+
+
 
     @Override
     protected void setup() {
@@ -82,6 +83,22 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         //Destination
         JList list2 = new JList(locations);
         list2.setVisibleRowCount(5);
+/*
+        JButton filter = new JButton("Filter");
+        filter.addActionListener(this);
+        panel1.add(filter);
+*/
+        JMenuBar menuBar = new JMenuBar();
+
+        JMenu menu = new JMenu("Meny");
+
+        menuItem = new JMenuItem("Filter");
+        menuItem.addActionListener(this);
+        JMenuItem profil = new JMenuItem("Profil");
+        menu.add(menuItem);
+        menu.add(profil);
+        menuBar.add(menu);
+        frame.setJMenuBar(menuBar);
 
         JLabel start = new JLabel("Start");
         start.setHorizontalAlignment(JLabel.CENTER);
@@ -179,9 +196,9 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==button){
-            frame.dispose();
+
             System.out.println("Button pressed");
-            NewWindow myWindow = new NewWindow();
+
         }
         if(e.getSource()==select){
             String text = textField.getText();
@@ -193,10 +210,15 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
             System.out.println(text);
         }
 
+        if(e.getSource()==menuItem){
+            frame.dispose();
+            NewWindow myWindow = new NewWindow();
+        }
+
     }
 
     public void stateChanged(ChangeEvent e){
-        System.out.println("Slider set to " + slider.getValue());
+
     }
 
     @Override
