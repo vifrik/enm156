@@ -45,15 +45,31 @@ public class ConfigTextCommand extends TextCommand {
         }
     }
 
-    private void setValueOfMetricWithName(String name, String value) {
-        Metric metric = parseMetric(name);
+    private void setValueOfMetricWithName(String name, String value) throws IllegalArgumentException {
+        Metric metric;
+
+        switch (name) {
+            case "change-time" -> {
+                metric = Metric.ADDITIONAL_CHANGE_TIME;
+                int v = Integer.parseInt(value);
+                if (v < 5)
+                    throw new IllegalArgumentException("Illegal argument: %d".formatted(v));
+
+                int additionalChangeTime = v - 5;
+                value = String.valueOf(additionalChangeTime);
+            }
+            default -> throw new IllegalArgumentException("Illegal argument: %s".formatted(name));
+        }
+
+
         metricManager.setMetric(metric, value);
     }
 
     private void displayMetricWithName(String name) {
-        Metric metric = parseMetric(name);
+        switch ()
         printMessage(metricManager.getMetric(metric));
     }
+
 
     @Override
     protected String getDescription() {
@@ -68,10 +84,4 @@ public class ConfigTextCommand extends TextCommand {
         );
     }
 
-    private Metric parseMetric(String name) {
-        return switch (name) {
-            case "max-walk-dist" -> Metric.MAX_WALK_DISTANCE;
-            default -> null;
-        };
-    }
 }
