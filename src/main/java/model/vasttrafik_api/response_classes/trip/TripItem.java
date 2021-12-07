@@ -25,11 +25,11 @@ public class TripItem {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(score);
-        sb.append("\n");
+        sb.append(String.format("Score: %s%n", score));
+        int counter = 0;
         for (LegItem l : leg) {
-            sb.append(l);
-            sb.append("\n");
+            sb.append(String.format("Leg: %s :: %s%n", counter, l));
+            counter++;
         }
         return sb.toString();
     }

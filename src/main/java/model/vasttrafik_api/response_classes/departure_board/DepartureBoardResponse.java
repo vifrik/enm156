@@ -13,6 +13,11 @@ public class DepartureBoardResponse {
 
     @Override
     public String toString() {
-        return departureBoard.toString();
+        StringBuilder sb = new StringBuilder();
+        for (DepartureItem d : departureBoard.getDepartures()) {
+            sb.append("[%3s] [%4s] [%s] %s".formatted(d.getSname(), d.getType(), d.getTime(), d.getDirection()));
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }
