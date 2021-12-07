@@ -1,6 +1,7 @@
 package controller;
 
 import model.vasttrafik_api.TravelSearch;
+import model.vasttrafik_api.response_classes.departure_board.DepartureBoardResponse;
 import model.vasttrafik_api.response_classes.name.NameResponse;
 import model.vasttrafik_api.response_classes.trip.TripItem;
 import model.vasttrafik_api.response_classes.trip.TripResponse;
@@ -8,8 +9,8 @@ import model.vasttrafik_api.response_classes.trip.TripResponse;
 import java.util.List;
 
 public class TripController implements ITripController {
-    TravelSearch travelSearch;
     private final IMetricController m;
+    TravelSearch travelSearch;
 
     public TripController(IMetricController metricController) {
         this.m = metricController;
@@ -36,5 +37,10 @@ public class TripController implements ITripController {
     @Override
     public NameResponse findNames(String query) {
         return travelSearch.getName(query);
+    }
+
+    @Override
+    public DepartureBoardResponse findDepartures(String id) {
+        return travelSearch.getDepartures(id);
     }
 }
