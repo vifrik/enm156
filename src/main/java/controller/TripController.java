@@ -9,9 +9,9 @@ import java.util.List;
 
 public class TripController implements ITripController {
     TravelSearch travelSearch;
-    private MetricController m;
+    private IMetricController m;
 
-    public TripController(MetricController metricController) {
+    public TripController(IMetricController metricController) {
         this.m = metricController;
         travelSearch = new TravelSearch();
     }
