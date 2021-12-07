@@ -18,7 +18,21 @@ public class MetricController implements IMetricController {
         metrics.put(metric, value);
     }
 
-    public void setMetric(String metricName, String value) {
+    @Override
+    public String getMetric(String metricName) {
+
+        switch (metricName) {
+            case CHANGE_TIME -> {
+                String additionalChangeTime = getMetric(Metric.ADDITIONAL_CHANGE_TIME);
+                int act = Integer.parseInt(additionalChangeTime);
+                return String.valueOf(act - 5);
+            }
+            default -> throw new IllegalArgumentException();
+        }
+    }
+
+    @Override
+    public void setMetric(String metricName, String value) throws IllegalArgumentException {
         Metric metric;
         switch (metricName) {
             case CHANGE_TIME -> {
