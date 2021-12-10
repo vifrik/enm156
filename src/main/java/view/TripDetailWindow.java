@@ -28,14 +28,20 @@ public class TripDetailWindow {
 
         JLabel typeLabel = new JLabel("  [%s] %s: %s".formatted(legItem.getType(), legItem.getSname(), legItem.getDirection()));
         typeLabel.setForeground(Color.decode("#F4F9E9"));
-        if (legItem.getFgColor() != null) typeLabel.setForeground(Color.decode(legItem.getFgColor()));
-        if (legItem.getBgColor() != null) subPanel.setBackground(Color.decode(legItem.getBgColor()));
 
         JLabel sourceLabel = new JLabel("%s - %s".formatted(legItem.getOrigin().getTime(),legItem.getOrigin().getName()));
         sourceLabel.setForeground(Color.decode("#F4F9E9"));
 
         JLabel destLabel = new JLabel("%s - %s".formatted(legItem.getDestination().getTime(),legItem.getDestination().getName()));
         destLabel.setForeground(Color.decode("#F4F9E9"));
+
+        if (legItem.getFgColor() != null) {
+            typeLabel.setForeground(Color.decode(legItem.getFgColor()));
+            sourceLabel.setForeground(Color.decode(legItem.getFgColor()));
+            destLabel.setForeground(Color.decode(legItem.getFgColor()));
+
+        }
+        if (legItem.getBgColor() != null) subPanel.setBackground(Color.decode(legItem.getBgColor()));
 
         subPanel.add(sourceLabel);
         subPanel.add(typeLabel);
