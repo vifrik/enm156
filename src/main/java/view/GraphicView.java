@@ -4,10 +4,7 @@ import controller.IMetricController;
 import controller.ITripController;
 import controller.MetricController;
 import controller.TripController;
-import model.timetable.TimeTable;
 import model.vasttrafik_api.response_classes.name.NameResponse;
-import view.textview.textcmds.MockTimeTable;
-
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
@@ -15,10 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GraphicView extends BaseView implements ChangeListener, ActionListener, ListSelectionListener, DocumentListener {
+    JOptionPane optionPane;
+    JTextField textField;
     private JFrame frame;
     private JButton button, select, select1, filter;
     private JSlider slider;
-    JOptionPane optionPane;
     JMenuBar menuBar;
     JMenu menu;
     JMenuItem menuItem;
@@ -27,10 +25,15 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
     private IMetricController metricController;
     private ITripController tripController;
 
-    public GraphicView(TimeTable timeTable) {
-        super(timeTable);
+    public GraphicView() {
+        super();
         metricController = new MetricController();
         tripController = new TripController(metricController);
+    }
+
+    public static void main(String[] args) {
+        BaseView userInterface = new GraphicView();
+        userInterface.start();
     }
 
 
@@ -62,10 +65,10 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
 
         //Panel
         JPanel panel1 = new JPanel(new BorderLayout());
-        panel1.setPreferredSize(new Dimension(420,500));
+        panel1.setPreferredSize(new Dimension(420, 500));
         panel1.setBackground(Color.green);
-        panel1.setBorder(BorderFactory.createEmptyBorder(30,30,10,30));
-        panel1.setLayout(new GridLayout(0,1));
+        panel1.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        panel1.setLayout(new GridLayout(0, 1));
         frame.add(panel1, BorderLayout.CENTER);
 
 
@@ -80,8 +83,6 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         locations[7] = "Korsvägen";
         locations[8] = "Brunnsparken";
         locations[9] = "Frölundatorg";
-
-
 
 
         //Start
@@ -152,7 +153,7 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
 
         //Panel 2
         JPanel panel2 = new JPanel();
-        panel2.setPreferredSize(new Dimension(0,50));
+        panel2.setPreferredSize(new Dimension(0, 50));
         panel2.setBackground(Color.BLUE);
         frame.add(panel2, BorderLayout.AFTER_LAST_LINE);
 
@@ -190,11 +191,6 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
     protected void cleanup() {
 
     }
-    public static void main(String[] args){
-        TimeTable timeTable = new MockTimeTable();
-        BaseView userInterface = new GraphicView(timeTable);
-        userInterface.start();
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -203,9 +199,18 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
             System.out.println("Button pressed");
 
         }
-        if(e.getSource()==menuItem){
+        if(e.getSource()==menuItem) {
             frame.dispose();
             NewWindow myWindow = new NewWindow();
+        }
+        if (e.getSource() == select) {
+            String text = textField.getText();
+            System.out.println(text);
+
+        }
+        if (e.getSource() == select1) {
+            String text = textField.getText();
+            System.out.println(text);
         }
 
     }

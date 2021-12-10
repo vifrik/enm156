@@ -2,8 +2,10 @@ package view.textview.textcmds;
 
 import controller.IMetricController;
 import controller.Metric;
+import controller.MetricController;
 import view.textview.TextView;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,24 +37,24 @@ public class ConfigTextCommand extends TextCommand {
             case 1 -> printFullDescription();
             case 2 -> {
                 String metricName = arguments[1];
-                displayMetricWithName(metricName);
+                try {
+                    String value = metricManager.getMetric(metricName);
+                }
+                catch (IllegalArgumentException e) {
+                    System.out.printf("Illegal arguments set: %s%n", String.join(",", arguments));
+                }
             }
             case 3 -> {
                 String metricName = arguments[1];
                 String metricValue = arguments[2];
-                setValueOfMetricWithName(metricName, metricValue);
+                try {
+                    metricManager.setMetric(metricName, metricValue);
+                }
+                catch (IllegalArgumentException e) {
+                    System.out.printf("Illegal arguments set: %s%n", String.join(",", arguments));
+                }
             }
         }
-    }
-
-    private void setValueOfMetricWithName(String name, String value) {
-        Metric metric = parseMetric(name);
-        metricManager.setMetric(metric, value);
-    }
-
-    private void displayMetricWithName(String name) {
-        Metric metric = parseMetric(name);
-        printMessage(metricManager.getMetric(metric));
     }
 
     @Override
@@ -68,10 +70,4 @@ public class ConfigTextCommand extends TextCommand {
         );
     }
 
-    private Metric parseMetric(String name) {
-        return switch (name) {
-            case "max-walk-dist" -> Metric.MAX_WALK_DISTANCE;
-            default -> null;
-        };
-    }
 }

@@ -1,12 +1,7 @@
 package view;
 
-import model.timetable.TimeTable;
-
 public abstract class BaseView {
-    TimeTable timeTable;
-
-    public BaseView(TimeTable timeTable) {
-        this.timeTable = timeTable;
+    public BaseView() {
     }
 
     public void start() {

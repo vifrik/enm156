@@ -1,6 +1,8 @@
 package model.vasttrafik_api.response_classes.departure_board;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import model.vasttrafik_api.response_classes.AlwaysListTypeAdapterFactory;
 
 import java.util.List;
 
@@ -10,6 +12,7 @@ public class DepartureBoard {
     private String serverdate;
 
     @SerializedName("Departure")
+    @JsonAdapter(AlwaysListTypeAdapterFactory.class)
     private List<DepartureItem> departures;
 
     @SerializedName("servertime")
@@ -32,5 +35,15 @@ public class DepartureBoard {
 
     public String getNoNamespaceSchemaLocation() {
         return noNamespaceSchemaLocation;
+    }
+
+    @Override
+    public String toString() {
+        return "DepartureBoard{" +
+                "serverdate='" + serverdate + '\'' +
+                ", departures=" + departures +
+                ", servertime='" + servertime + '\'' +
+                ", noNamespaceSchemaLocation='" + noNamespaceSchemaLocation + '\'' +
+                '}';
     }
 }

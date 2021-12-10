@@ -1,6 +1,5 @@
 package view.textview;
 
-import model.timetable.TimeTable;
 import view.BaseView;
 import view.textview.textcmds.TextCommandManager;
 
@@ -9,12 +8,11 @@ import java.util.Scanner;
 
 public class TextView extends BaseView {
     Scanner inputScanner;
-    TimeTable timeTable;
     TextCommandManager textCommandManager;
     private boolean isRunning;
 
-    public TextView(TimeTable timeTable)  {
-        super(timeTable);
+    public TextView() {
+        super();
     }
 
     @Override

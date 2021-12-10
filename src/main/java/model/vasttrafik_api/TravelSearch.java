@@ -1,5 +1,6 @@
 package model.vasttrafik_api;
 
+import model.vasttrafik_api.response_classes.departure_board.DepartureBoardResponse;
 import model.vasttrafik_api.response_classes.name.NameResponse;
 import model.vasttrafik_api.response_classes.trip.TripResponse;
 import okhttp3.Response;
@@ -42,6 +43,16 @@ public class TravelSearch {
                 "bin/rest.exe/v2/trip", "GET", params, null, null, auth);
 
         return JSON.objFromJson(response, TripResponse.class);
+    }
+
+    public DepartureBoardResponse getDepartures(String id) {
+        Map<String, String> params = new HashMap<>();
+        params.put("id", id);
+
+        Response response = Connection.sendRequest("https", "api.vasttrafik.se",
+                "bin/rest.exe/v2/departureBoard", "GET", params, null, null, auth);
+
+        return JSON.objFromJson(response, DepartureBoardResponse.class);
     }
 
     public NameResponse getName(String searchName) {

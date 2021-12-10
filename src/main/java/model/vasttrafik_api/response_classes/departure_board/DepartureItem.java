@@ -115,4 +115,26 @@ public class DepartureItem {
     public String getDirection() {
         return direction;
     }
+
+    @Override
+    public String toString() {
+        return "DepartureItem{" +
+                "date='" + date + '\'' +
+                ", fgColor='" + fgColor + '\'' +
+                ", journeyDetailRef=" + journeyDetailRef +
+                ", accessibility='" + accessibility + '\'' +
+                ", journeyNumber='" + journeyNumber + '\'' +
+                ", stopid='" + stopid + '\'' +
+                ", type='" + type + '\'' +
+                ", journeyid='" + journeyid + '\'' +
+                ", stroke='" + stroke + '\'' +
+                ", stop='" + stop + '\'' +
+                ", bgColor='" + bgColor + '\'' +
+                ", sname='" + sname + '\'' +
+                ", name='" + name + '\'' +
+                ", time='" + time + '\'' +
+                ", track='" + track + '\'' +
+                ", direction='" + direction + '\'' +
+                '}';
+    }
 }
