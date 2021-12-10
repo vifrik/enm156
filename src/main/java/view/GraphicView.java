@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 public class GraphicView extends BaseView implements ChangeListener, ActionListener, ListSelectionListener, DocumentListener {
     JOptionPane optionPane;
     JTextField textField;
-    private JFrame frame;
+    JFrame frame;
     private JButton button, select, select1, filter;
     private JSlider slider;
     JMenuBar menuBar;
@@ -200,7 +200,8 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
 
         }
         if(e.getSource()==menuItem) {
-            frame.dispose();
+            //frame.dispose();
+            frame.setVisible(false);
             NewWindow myWindow = new NewWindow(this);
         }
         if (e.getSource() == select) {

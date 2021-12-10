@@ -16,7 +16,7 @@ public class NewWindow implements  ChangeListener, ActionListener {
     JMenu menu;
     JMenuItem menuItem;
     JMenuBar menuBar;
-    JButton button;
+    JButton helpButton, backButton;
     private final GraphicView graphicView;
 
     NewWindow(GraphicView graphicView){
@@ -51,7 +51,7 @@ public class NewWindow implements  ChangeListener, ActionListener {
 
         //Slider
         slider = new JSlider(JSlider.HORIZONTAL,5,60,5);
-        slider.setBounds(100,150,300,200);
+        slider.setBounds(100,150,300,100);
         slider.addChangeListener(this);
         slider.setMinorTickSpacing(1);
         slider.setMajorTickSpacing(2);
@@ -60,15 +60,20 @@ public class NewWindow implements  ChangeListener, ActionListener {
         frame.add(slider);
 
         //Button
-        button = new JButton("Hjälp");
-        button.setBounds(200,350,100,40);
-        button.addActionListener(this);
-        frame.add(button);
+        helpButton = new JButton("Hjälp");
+        helpButton.setBounds(200,250,100,40);
+        helpButton.addActionListener(this);
+        frame.add(helpButton);
+
+        backButton = new JButton("Tillbaka");
+        backButton.setBounds(200, 300, 100, 40);
+        backButton.addActionListener(this);
+        frame.add(backButton);
 
         //Pop-up
 
         //Frame
-        frame.setResizable(false);
+        //frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ImageIcon image = new ImageIcon("buss.png");
         frame.setIconImage(image.getImage());
@@ -91,9 +96,13 @@ public class NewWindow implements  ChangeListener, ActionListener {
             frame.dispose();
             //GraphicView graphicView = new GraphicView();
         }
-        if(e.getSource()==button){
+        if(e.getSource()== helpButton){
             JOptionPane optionPane= new JOptionPane();
             JOptionPane.showMessageDialog(frame,"Genom att ställa in säkerhetsfaktorn väljer du hur säker din resa ska vara samt hur mycket du är redo att riskera för snabbhet");
+        }
+        if (e.getSource() == backButton) {
+            graphicView.frame.setVisible(true);
+            frame.dispose();
         }
 
 
