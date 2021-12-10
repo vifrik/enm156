@@ -188,8 +188,8 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
             if (rawDest == null) return;
             var dest = (StopLocationItem) rawDest;
 
-
-            System.out.println(tripController.findTrip(src.getId(), dest.getId()));
+            var trip = tripController.findTrip(src.getId(), dest.getId());
+            JOptionPane.showMessageDialog(frame, trip);
         }
         if(e.getSource()==menuItem) {
             frame.setVisible(false);
