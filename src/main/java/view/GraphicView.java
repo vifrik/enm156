@@ -5,6 +5,8 @@ import controller.ITripController;
 import controller.MetricController;
 import controller.TripController;
 import model.vasttrafik_api.response_classes.name.NameResponse;
+import model.vasttrafik_api.response_classes.name.StopLocationItem;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
@@ -12,18 +14,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GraphicView extends BaseView implements ChangeListener, ActionListener, ListSelectionListener, DocumentListener {
-    JOptionPane optionPane;
     JTextField textField;
     JFrame frame;
-    private JButton button, select, select1, filter;
-    private JSlider slider;
+    private JButton searchButton, sourceSelect, destSelect;
     JMenuBar menuBar;
     JMenu menu;
     JMenuItem menuItem;
-    JScrollPane scrollPane;
+    JScrollPane srcScrollPane;
 
     IMetricController metricController;
     ITripController tripController;
+    private JList destList;
+    private JList sourceList;
+    private JScrollPane destScrollPane;
 
     public GraphicView() {
         super();
@@ -35,8 +38,6 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         BaseView userInterface = new GraphicView();
         userInterface.start();
     }
-
-
 
     @Override
     protected void setup() {
@@ -71,61 +72,44 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         panel1.setLayout(new GridLayout(0, 1));
         frame.add(panel1, BorderLayout.CENTER);
 
-
-        String[] locations = new String[10];
-        locations[0] = "Chalmers";
-        locations[1] = "Lindholmen";
-        locations[2] = "Korsvägen";
-        locations[3] = "Brunnsparken";
-        locations[4] = "Frölundatorg";
-        locations[5] = "Chalmers";
-        locations[6] = "Lindholmen";
-        locations[7] = "Korsvägen";
-        locations[8] = "Brunnsparken";
-        locations[9] = "Frölundatorg";
-
-
         //Start
-        JList list1 = new JList(locations);
-        list1.setVisibleRowCount(5);
+        sourceList = new JList<>();
+        sourceList.setVisibleRowCount(5);
 
         //Destination
-        JList list2 = new JList(locations);
-        list2.setVisibleRowCount(5);
+        destList = new JList<>();
+        destList.setVisibleRowCount(5);
 
         JLabel start = new JLabel("Start");
         start.setHorizontalAlignment(JLabel.CENTER);
         panel1.add(start);
 
         //Textfield 1
-        JScrollPane scrollPane = new JScrollPane(list1);
-        JTextField textField =  new JTextField();
-        textField.getDocument().addDocumentListener(new SearchBoxDocumentListener(scrollPane, textField));
+        srcScrollPane = new JScrollPane(sourceList);
+        textField =  new JTextField();
+        textField.getDocument().addDocumentListener(new SearchBoxDocumentListener(srcScrollPane, textField));
         panel1.add(textField);
 
         //Scroll
-        scrollPane.setViewportView(list1);
-        list1.setLayoutOrientation(JList.VERTICAL);
-        panel1.add(scrollPane);
+        srcScrollPane.setViewportView(sourceList);
+        sourceList.setLayoutOrientation(JList.VERTICAL);
+        panel1.add(srcScrollPane);
 
 
         //Menu
-        JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
 
-        JMenu menu = new JMenu("Meny");
+        menu = new JMenu("Meny");
 
         menuItem = new JMenuItem("Filter");
         menuItem.addActionListener(this);
-        JMenuItem profil = new JMenuItem("Profil");
         menu.add(menuItem);
-        menu.add(profil);
         menuBar.add(menu);
         frame.setJMenuBar(menuBar);
 
-
-        JButton select1 = new JButton("Välj");
-        select1.addActionListener(this);
-        panel1.add(select1);
+        sourceSelect = new JButton("Välj");
+        sourceSelect.addActionListener(this);
+        panel1.add(sourceSelect);
 
         //Label
         JLabel destination = new JLabel("Destination");
@@ -133,23 +117,21 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         destination.setHorizontalAlignment(JLabel.CENTER);
         panel1.add(destination);
 
+        //Scroll 2
+        destScrollPane = new JScrollPane(destList);
+        destScrollPane.setViewportView(destList);
+        destList.setLayoutOrientation(JList.VERTICAL);
+
         //Textfield 2
         JTextField textField2 = new JTextField();
-        textField.getDocument().addDocumentListener(new SearchBoxDocumentListener(scrollPane, textField));
+        textField2.getDocument().addDocumentListener(new SearchBoxDocumentListener(destScrollPane, textField2));
         panel1.add(textField2);
+        panel1.add(destScrollPane);
 
-
-        //Scroll 2
-        JScrollPane scrollPane2 = new JScrollPane(list2);
-        scrollPane2.setViewportView(list2);
-        list2.setLayoutOrientation(JList.VERTICAL);
-        panel1.add(scrollPane2);
-
-        list1.addListSelectionListener(this);
-
-        JButton select = new JButton("Välj");
-        select.addActionListener(this);
-        panel1.add(select);
+        destList.addListSelectionListener(this);
+        destSelect = new JButton("Välj");
+        destSelect.addActionListener(this);
+        panel1.add(destSelect);
 
         //Panel 2
         JPanel panel2 = new JPanel();
@@ -166,9 +148,9 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
 
 
         //button
-        button = new JButton("Sök");
-        button.addActionListener(this);
-        panel2.add(button);
+        searchButton = new JButton("Sök");
+        searchButton.addActionListener(this);
+        panel2.add(searchButton);
 
     }
 
@@ -194,22 +176,31 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==button){
+        if(e.getSource()== searchButton){
+            var srcList = (JList) srcScrollPane.getViewport().getView();
+            var destList = (JList) destScrollPane.getViewport().getView();
 
-            System.out.println("Button pressed");
+            var rawSrc = srcList.getSelectedValue();
+            if (rawSrc == null) return;
+            var src = (StopLocationItem) rawSrc;
 
+            var rawDest = destList.getSelectedValue();
+            if (rawDest == null) return;
+            var dest = (StopLocationItem) rawDest;
+
+
+            System.out.println(tripController.findTrip(src.getId(), dest.getId()));
         }
         if(e.getSource()==menuItem) {
-            //frame.dispose();
             frame.setVisible(false);
             NewWindow myWindow = new NewWindow(this);
         }
-        if (e.getSource() == select) {
+        if (e.getSource() == sourceSelect) {
             String text = textField.getText();
             System.out.println(text);
 
         }
-        if (e.getSource() == select1) {
+        if (e.getSource() == destSelect) {
             String text = textField.getText();
             System.out.println(text);
         }
@@ -250,16 +241,19 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
             this.jTextField = jTextField;
         }
 
-        private void updateList() {
+        private void updateSourceList() {
             NameResponse nameResponse = tripController.findNames(jTextField.getText());
-            JList jList = new JList(nameResponse.getLocationList().getStopLocation().toArray());
+
+            sourceList.removeAll();
+
+            var jList = new JList<>(nameResponse.getLocationList().getStopLocation().toArray());
 
             jScrollPane.setViewportView(jList);
         }
 
         @Override
         public void insertUpdate(DocumentEvent e) {
-            updateList();
+            updateSourceList();
 
         }
 
