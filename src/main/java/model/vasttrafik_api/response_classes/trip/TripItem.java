@@ -67,7 +67,7 @@ public class TripItem {
 
         for (LegItem l : leg) {
             String dest = l.getDestination().getName();
-            double weightContribution = Math.log(stationWeight.getWeights().get(dest)) / Math.log(2);
+            double weightContribution = Math.log(stationWeight.getWeights().get(dest)) / Math.log(1.5);
             weight += weightContribution;
         }
 

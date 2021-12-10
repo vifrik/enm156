@@ -47,9 +47,9 @@ public class TripList {
         for (TripItem trip : trips) {
             double score = 0;
 
-            score += trip.getTimeScore() / 60;
+            score += trip.getTimeScore() / 30;
             score += trip.getWeightScore(stationWeight);
-            score += trip.getNofStops() * 6;
+            score += trip.getNofStops() * 4;
 
             trip.setScore(score);
         }
