@@ -1,6 +1,11 @@
 package view;
 
+import controller.IMetricController;
+import controller.ITripController;
+import controller.MetricController;
+import controller.TripController;
 import model.timetable.TimeTable;
+import model.vasttrafik_api.response_classes.name.NameResponse;
 import view.textview.textcmds.MockTimeTable;
 
 import javax.swing.*;
@@ -11,17 +16,21 @@ import java.awt.event.ActionListener;
 
 public class GraphicView extends BaseView implements ChangeListener, ActionListener, ListSelectionListener, DocumentListener {
     private JFrame frame;
-    private JButton button, select, select1;
-    JButton filter;
+    private JButton button, select, select1, filter;
     private JSlider slider;
     JOptionPane optionPane;
-    JTextField textField;
     JMenuBar menuBar;
     JMenu menu;
     JMenuItem menuItem;
+    JScrollPane scrollPane;
+
+    private IMetricController metricController;
+    private ITripController tripController;
 
     public GraphicView(TimeTable timeTable) {
         super(timeTable);
+        metricController = new MetricController();
+        tripController = new TripController(metricController);
     }
 
 
@@ -33,7 +42,6 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         setupFrameComponents();
         sizeFrame();
         showFrame();
-        JTextField textField;
     }
 
     private void createFrame() {
@@ -83,11 +91,24 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         //Destination
         JList list2 = new JList(locations);
         list2.setVisibleRowCount(5);
-/*
-        JButton filter = new JButton("Filter");
-        filter.addActionListener(this);
-        panel1.add(filter);
-*/
+
+        JLabel start = new JLabel("Start");
+        start.setHorizontalAlignment(JLabel.CENTER);
+        panel1.add(start);
+
+        //Textfield 1
+        JScrollPane scrollPane = new JScrollPane(list1);
+        JTextField textField =  new JTextField();
+        textField.getDocument().addDocumentListener(new SearchBoxDocumentListener(scrollPane, textField));
+        panel1.add(textField);
+
+        //Scroll
+        scrollPane.setViewportView(list1);
+        list1.setLayoutOrientation(JList.VERTICAL);
+        panel1.add(scrollPane);
+
+
+        //Menu
         JMenuBar menuBar = new JMenuBar();
 
         JMenu menu = new JMenu("Meny");
@@ -100,23 +121,7 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         menuBar.add(menu);
         frame.setJMenuBar(menuBar);
 
-        JLabel start = new JLabel("Start");
-        start.setHorizontalAlignment(JLabel.CENTER);
-        panel1.add(start);
 
-        //Textfield 1
-        JTextField textField = new JTextField();
-        textField.addActionListener(this);
-        textField.getDocument().addDocumentListener(this);
-        panel1.add(textField);
-
-        /*
-        //Scroll
-        JScrollPane scrollPane = new JScrollPane(list1);
-        scrollPane.setViewportView(list1);
-        list1.setLayoutOrientation(JList.VERTICAL);
-        panel1.add(scrollPane);
-*/
         JButton select1 = new JButton("Välj");
         select1.addActionListener(this);
         panel1.add(select1);
@@ -127,19 +132,17 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         destination.setHorizontalAlignment(JLabel.CENTER);
         panel1.add(destination);
 
+        //Textfield 2
+        JTextField textField2 = new JTextField();
+        textField.getDocument().addDocumentListener(new SearchBoxDocumentListener(scrollPane, textField));
+        panel1.add(textField2);
 
-/*
+
         //Scroll 2
         JScrollPane scrollPane2 = new JScrollPane(list2);
         scrollPane2.setViewportView(list2);
         list2.setLayoutOrientation(JList.VERTICAL);
         panel1.add(scrollPane2);
-
- */
-
-        //Textfield 2
-        JTextField textField2 = new JTextField();
-        panel1.add(textField2);
 
         list1.addListSelectionListener(this);
 
@@ -200,16 +203,6 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
             System.out.println("Button pressed");
 
         }
-        if(e.getSource()==select){
-            String text = textField.getText();
-            System.out.println(text);
-
-        }
-        if(e.getSource()==select1){
-            String text = textField.getText();
-            System.out.println(text);
-        }
-
         if(e.getSource()==menuItem){
             frame.dispose();
             NewWindow myWindow = new NewWindow();
@@ -217,7 +210,23 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
 
     }
 
-    public void stateChanged(ChangeEvent e){
+    @Override
+    public void stateChanged(ChangeEvent e) {
+
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
 
     }
 
@@ -225,16 +234,36 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
     public void valueChanged(ListSelectionEvent e) {
 
     }
-    @Override
-    public void insertUpdate(DocumentEvent e) {
 
-    }
-    @Override
-    public void removeUpdate(DocumentEvent e) {
+    class SearchBoxDocumentListener implements DocumentListener {
+        private JScrollPane jScrollPane;
+        private JTextField jTextField;
 
-    }
-    @Override
-    public void changedUpdate(DocumentEvent e) {
+        public SearchBoxDocumentListener(JScrollPane jScrollPane, JTextField jTextField) {
+            this.jScrollPane = jScrollPane;
+            this.jTextField = jTextField;
+        }
 
+        private void updateList() {
+            NameResponse nameResponse = tripController.findNames(jTextField.getText());
+            JList jList = new JList(nameResponse.getLocationList().getStopLocation().toArray());
+
+            jScrollPane.setViewportView(jList);
+        }
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            updateList();
+
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+        }
     }
 }
