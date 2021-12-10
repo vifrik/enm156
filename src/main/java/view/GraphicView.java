@@ -22,8 +22,8 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
     JMenuItem menuItem;
     JScrollPane scrollPane;
 
-    private IMetricController metricController;
-    private ITripController tripController;
+    IMetricController metricController;
+    ITripController tripController;
 
     public GraphicView() {
         super();
@@ -201,7 +201,7 @@ public class GraphicView extends BaseView implements ChangeListener, ActionListe
         }
         if(e.getSource()==menuItem) {
             frame.dispose();
-            NewWindow myWindow = new NewWindow();
+            NewWindow myWindow = new NewWindow(this);
         }
         if (e.getSource() == select) {
             String text = textField.getText();

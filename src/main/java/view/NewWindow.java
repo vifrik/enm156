@@ -17,8 +17,10 @@ public class NewWindow implements  ChangeListener, ActionListener {
     JMenuItem menuItem;
     JMenuBar menuBar;
     JButton button;
+    private final GraphicView graphicView;
 
-    NewWindow(){
+    NewWindow(GraphicView graphicView){
+        this.graphicView = graphicView;
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(0,50));
         panel.setBackground(Color.BLUE);
@@ -48,9 +50,9 @@ public class NewWindow implements  ChangeListener, ActionListener {
 
 
         //Slider
-        slider = new JSlider(JSlider.HORIZONTAL,0,10,5);
+        slider = new JSlider(JSlider.HORIZONTAL,5,60,5);
         slider.setBounds(100,150,300,200);
-        slider.addChangeListener((ChangeListener) this);
+        slider.addChangeListener(this);
         slider.setMinorTickSpacing(1);
         slider.setMajorTickSpacing(2);
         slider.setPaintTicks(true);
@@ -80,6 +82,7 @@ public class NewWindow implements  ChangeListener, ActionListener {
     @Override
     public void stateChanged(ChangeEvent e) {
         System.out.println("Slider set to " + slider.getValue());
+        graphicView.metricController.setMetric("change-time", Integer.toString(slider.getValue()));
     }
 
     @Override
@@ -91,7 +94,8 @@ public class NewWindow implements  ChangeListener, ActionListener {
         if(e.getSource()==button){
             JOptionPane optionPane= new JOptionPane();
             JOptionPane.showMessageDialog(frame,"Genom att ställa in säkerhetsfaktorn väljer du hur säker din resa ska vara samt hur mycket du är redo att riskera för snabbhet");
-
         }
+
+
     }
 }
