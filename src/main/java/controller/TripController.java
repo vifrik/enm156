@@ -18,7 +18,7 @@ public class TripController implements ITripController {
     }
 
     @Override
-    public TripResponse findTrip(String sourceId, String destinationId) {
+    public TripResponse findTripId(String sourceId, String destinationId) {
         TripResponse tripResponse = travelSearch.getTrip(sourceId, destinationId,
                 m.getMetric(Metric.VIA_ID), m.getMetric(Metric.DATE), m.getMetric(Metric.TIME),
                 m.getMetric(Metric.SEARCH_FOR_ARRIVAL), m.getMetric(Metric.WHEEL_CHAIR_SPACE),
@@ -32,6 +32,21 @@ public class TripController implements ITripController {
         trips.sort(new TripItem.TripComparator());
 
         return tripResponse;
+    }
+
+    @Override
+    public TripResponse findTrip(String sourceName, String destinationName) throws IllegalArgumentException {
+        NameResponse nameResponseSource = findNames(sourceName);
+        NameResponse nameResponseDestination = findNames(destinationName);
+
+        if (nameResponseSource.getLocationList() == null || nameResponseDestination.getLocationList() == null) {
+            throw new IllegalArgumentException("No stations matching queries %s or %s".formatted(sourceName, destinationName));
+        }
+
+        return findTripId(
+                nameResponseSource.getLocationList().getStopLocation().get(0).getId(),
+                nameResponseDestination.getLocationList().getStopLocation().get(0).getId()
+        );
     }
 
     @Override

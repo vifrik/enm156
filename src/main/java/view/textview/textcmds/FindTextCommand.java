@@ -12,7 +12,7 @@ import java.util.Objects;
 public class FindTextCommand extends TextCommand {
     private final ITripController tripController;
     private TripResponse tripResponse;
-    private String lastDestinationId;
+    private String lastDestinationName;
 
     public FindTextCommand(TextView textView, ITripController tripController) {
         super(textView);
@@ -55,7 +55,7 @@ public class FindTextCommand extends TextCommand {
     }
 
     private void parseContArgumnents(String... arguments) {
-        if (lastDestinationId == null || tripResponse == null) {
+        if (lastDestinationName == null || tripResponse == null) {
             printMessage("No last trip search found! See help");
             return;
         }
@@ -67,10 +67,10 @@ public class FindTextCommand extends TextCommand {
                     int fromStationIndex = Integer.parseInt(arguments[2]);
 
                     try {
-                        findAndPrintTripId(
+                        findAndPrintTrip(
                                 tripResponse.getTripList().getTrips().get(journeyIndex).getLeg()
-                                        .get(fromStationIndex).getOrigin().getId(),
-                                lastDestinationId
+                                        .get(fromStationIndex).getOrigin().getName(),
+                                lastDestinationName
                         );
                     } catch (IllegalArgumentException e) {
                         printMessage(e.getMessage());
@@ -109,32 +109,14 @@ public class FindTextCommand extends TextCommand {
         }
     }
 
-    private void findAndPrintTripId(String sourceId, String destinationId) throws IllegalArgumentException {
-        TripResponse trip = tripController.findTrip(sourceId, destinationId);
-
-        this.tripResponse = trip;
-        this.lastDestinationId = destinationId;
-
-        if (trip == null)
-            throw new IllegalArgumentException("No trip found matching query");
-        else
-            printTrip(trip);
-    }
-
     private void findAndPrintTrip(String source, String destination) {
-        NameResponse nameResponseSource = tripController.findNames(source);
-        NameResponse nameResponseDestination = tripController.findNames(destination);
-
-        if (nameResponseSource.getLocationList() == null || nameResponseDestination.getLocationList() == null) {
-            printMessage("No stations matching queries %s or %s".formatted(source, destination));
-            return;
-        }
-
         try {
-            findAndPrintTripId(
-                    nameResponseSource.getLocationList().getStopLocation().get(0).getId(),
-                    nameResponseDestination.getLocationList().getStopLocation().get(0).getId()
-            );
+            TripResponse trip = tripController.findTrip(source, destination);
+
+            this.tripResponse = trip;
+            this.lastDestinationName = destination;
+
+            printTrip(trip);
         } catch (IllegalArgumentException e) {
             printMessage(e.getMessage());
         }
