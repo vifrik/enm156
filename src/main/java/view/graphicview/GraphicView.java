@@ -125,19 +125,7 @@ public class GraphicView extends BaseView implements ActionListener  {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()== searchButton){
-            var srcList = (JList) sourceSection.scrollPane.getViewport().getView();
-            var destList = (JList) destinationSection.scrollPane.getViewport().getView();
-
-            Object rawSrc = srcList.getSelectedValue();
-            if (rawSrc == null) return;
-            StopLocationItem src = (StopLocationItem) rawSrc;
-
-            Object rawDest = destList.getSelectedValue();
-            if (rawDest == null) return;
-            StopLocationItem dest = (StopLocationItem) rawDest;
-
-            TripResponse trip = tripController.findTrip(src.getId(), dest.getId());
-            new TripWindow(trip, src, dest, tripController);
+            findTrip();
         }
 
         if(e.getSource()==menuItem) {
@@ -145,35 +133,19 @@ public class GraphicView extends BaseView implements ActionListener  {
             new MenuWindow(this);
         }
     }
-}
 
+    @SuppressWarnings("unchecked cast")
+    private void findTrip() {
+        var srcList = (JList<StopLocationItem>) sourceSection.scrollPane.getViewport().getView();
+        var destList = (JList<StopLocationItem>) destinationSection.scrollPane.getViewport().getView();
 
-record SearchBoxDocumentListener(ITripController tripController, JScrollPane jScrollPane,
-                                 JTextField jTextField) implements DocumentListener {
+        var srcItem = srcList.getSelectedValue();
+        var destItem = destList.getSelectedValue();
+        if (srcItem == null || destItem == null) return;
 
-    @Override
-    public void insertUpdate(DocumentEvent e) {
-        updateScrollPane();
-    }
-
-    private void updateScrollPane() {
-        var text = jTextField.getText();
-
-
-        var nameResponse = tripController.findNames(text);
-
-        var jList = new JList<>(nameResponse.getLocationList().getStopLocation().toArray());
-
-        jScrollPane.setViewportView(jList);
-    }
-
-    @Override
-    public void removeUpdate(DocumentEvent e) {
-
-    }
-
-    @Override
-    public void changedUpdate(DocumentEvent e) {
+        var trip = tripController.findTrip(srcItem.getId(), destItem.getId());
+        new TripWindow(trip, srcItem, destItem, tripController);
     }
 }
+
 

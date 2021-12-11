@@ -22,7 +22,7 @@ class SearchSection {
         textField = new JTextField();
         scrollPane = new JScrollPane();
 
-        var documentListener = new SearchBoxDocumentListener(tripController, scrollPane, textField);
+        var documentListener = new SearchBoxDocumentListener(tripController, this);
         textField.getDocument().addDocumentListener(documentListener);
         textField.setPreferredSize(new Dimension(400, SearchSection.STD_HEIGHT / 2));
         scrollPane.setPreferredSize(new Dimension(400, SearchSection.STD_HEIGHT * 2));
