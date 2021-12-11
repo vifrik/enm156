@@ -25,7 +25,10 @@ public class MetricController implements IMetricController {
             case CHANGE_TIME -> {
                 String additionalChangeTime = getMetric(Metric.ADDITIONAL_CHANGE_TIME);
                 int act = Integer.parseInt(additionalChangeTime);
-                return String.valueOf(act - 5);
+                return String.valueOf(act + 5);
+            }
+            case ADDITIONAL_CHANGE_TIME -> {
+                return getMetric(Metric.ADDITIONAL_CHANGE_TIME);
             }
             default -> throw new IllegalArgumentException();
         }
@@ -41,7 +44,7 @@ public class MetricController implements IMetricController {
                 if (v < 5)
                     throw new IllegalArgumentException("Illegal argument: %d".formatted(v));
 
-                value = String.valueOf(v);
+                value = String.valueOf(v - 5);
             }
             case ADDITIONAL_CHANGE_TIME -> {
                 metric = Metric.ADDITIONAL_CHANGE_TIME;
