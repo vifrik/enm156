@@ -1,15 +1,10 @@
 package view.graphicview;
 
-import controller.IMetricController;
-import controller.ITripController;
-import controller.MetricController;
-import controller.TripController;
+import controller.*;
 import model.vasttrafik_api.response_classes.name.StopLocationItem;
-import model.vasttrafik_api.response_classes.trip.TripResponse;
 import view.BaseView;
 
 import javax.swing.*;
-import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -75,8 +70,12 @@ public class GraphicView extends BaseView implements ActionListener  {
         createPanel();
         createMenu();
         createSections();
+        createSliders(panel);
+        createCheckBoxes(panel);
         createFooter();
     }
+
+
 
     private void sizeFrame() {
         frame.pack();
@@ -118,8 +117,50 @@ public class GraphicView extends BaseView implements ActionListener  {
     }
 
     private void createSections() {
-        sourceSection = new SearchSection(panel, tripController, "Source");
+        sourceSection = new SearchSection(panel, tripController, "Källa");
         destinationSection = new SearchSection(panel, tripController, "Destination");
+    }
+
+    private void createSlider(JPanel panel, String name, Metric metric, int min, int max, int defaultValue, int offset, int scale) {
+        JLabel label = new JLabel();
+        label.setText(name);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setForeground(Color.decode("#284B63"));
+        label.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
+
+        JSlider slider = new JSlider(JSlider.HORIZONTAL,min,max,defaultValue);
+        slider.addChangeListener(new MetricSliderChangeListener(metricController, slider, metric, offset));
+        slider.setMinorTickSpacing(1);
+        slider.setMajorTickSpacing(scale);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+
+        panel.add(label);
+        panel.add(slider);
+    }
+
+    private void createSliders(JPanel panel) {
+        createSlider(panel, "Bytestid", Metric.ADDITIONAL_CHANGE_TIME, 5, 60, 5, 5, 5);
+        createSlider(panel, "Maximalt gångavstånd", Metric.ADDITIONAL_CHANGE_TIME, 0, 10000, 2000, 0, 1000);
+    }
+
+    private void createCheckBox (JPanel panel, String title, Metric metric) {
+        JCheckBox jCheckBox = new JCheckBox();
+        jCheckBox.setText(title);
+        jCheckBox.addItemListener(new MetricCheckboxItemListener(metricController, jCheckBox, metric));
+
+        panel.add(jCheckBox);
+    }
+
+    private void createCheckBoxes(JPanel panel) {
+        JPanel subPanel = new JPanel(new GridLayout(0, 3));
+
+        createCheckBox(subPanel, "Rullstolsplatts", Metric.WHEEL_CHAIR_SPACE);
+        createCheckBox(subPanel, "Barnvagnsplatts", Metric.STROLLER_SPACE);
+        createCheckBox(subPanel, "Lågt golv", Metric.LOW_FLOOR);
+        createCheckBox(subPanel, "Ramp eller hiss", Metric.RAMP_OR_LIFT);
+
+        panel.add(subPanel);
     }
 
     @Override
