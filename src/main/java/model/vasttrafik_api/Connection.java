@@ -3,6 +3,7 @@ package model.vasttrafik_api;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.Map;
 
 public class Connection {
@@ -12,6 +13,8 @@ public class Connection {
     private static Response sendRequest(Request request) {
         try {
             return CLIENT.newCall(request).execute();
+        } catch (SocketTimeoutException e) {
+            System.err.println("Unable to reach API, timeout. Service may be down...");
         } catch (IOException e) {
             e.printStackTrace();
         }
