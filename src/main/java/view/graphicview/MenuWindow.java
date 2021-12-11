@@ -1,4 +1,4 @@
-package view;
+package view.graphicview;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 
-public class NewWindow implements  ChangeListener, ActionListener {
+public class MenuWindow implements  ChangeListener, ActionListener {
     JFrame frame = new JFrame("Västtrafik");
     JLabel label = new JLabel();
     JSlider slider;
@@ -19,7 +19,7 @@ public class NewWindow implements  ChangeListener, ActionListener {
     JButton helpButton, backButton;
     private final GraphicView graphicView;
 
-    NewWindow(GraphicView graphicView){
+    MenuWindow(GraphicView graphicView){
         this.graphicView = graphicView;
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(0,50));
