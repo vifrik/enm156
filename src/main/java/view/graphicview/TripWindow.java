@@ -46,7 +46,6 @@ public class TripWindow {
 
     public TripWindow(TripResponse tripResponse, StopLocationItem source, StopLocationItem dest, ITripController tripController) {
         this.tripController = tripController;
-        tripResponse.getTripList().calculateScores();
 
         GridLayout gridLayout = new GridLayout(0, 1, 0, 10);
         JPanel panel = new JPanel(gridLayout);
