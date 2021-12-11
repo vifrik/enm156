@@ -6,6 +6,7 @@ import model.vasttrafik_api.response_classes.trip.TripResponse;
 
 public interface ITripController {
     public TripResponse findTrip(String sourceId, String destinationId);
+    public TripResponse findTrip(String sourceId, String destinationId, String time);
 
     public NameResponse findNames(String query);
 

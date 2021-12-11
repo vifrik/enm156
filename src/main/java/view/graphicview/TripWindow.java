@@ -44,16 +44,15 @@ public class TripWindow {
         panel.add(subPanel);
     }
 
-    public TripWindow(TripResponse tripResponse, StopLocationItem source, StopLocationItem dest, ITripController tripController) {
+    public TripWindow(TripResponse tripResponse, StopLocationItem source, StopLocationItem dest, String time, ITripController tripController) {
         this.tripController = tripController;
 
         GridLayout gridLayout = new GridLayout(0, 1, 0, 10);
         JPanel panel = new JPanel(gridLayout);
-        //panel.setPreferredSize(new Dimension(420, 500));
         panel.setBackground(Color.decode("#B4B8AB"));
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
 
-        JLabel header = new JLabel("%s -> %s".formatted(source.getName(), dest.getName()));
+        JLabel header = new JLabel("%s -> %s, tid: %s".formatted(source.getName(), dest.getName(), time));
         panel.add(header);
 
         for (TripItem tripItem : tripResponse.getTripList().getTrips()) {

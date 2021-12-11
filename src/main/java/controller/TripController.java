@@ -18,9 +18,9 @@ public class TripController implements ITripController {
     }
 
     @Override
-    public TripResponse findTrip(String sourceId, String destinationId) {
+    public TripResponse findTrip(String sourceId, String destinationId, String time) {
         TripResponse tripResponse = travelSearch.getTrip(sourceId, destinationId,
-                m.getMetric(Metric.VIA_ID), m.getMetric(Metric.DATE), m.getMetric(Metric.TIME),
+                m.getMetric(Metric.VIA_ID), m.getMetric(Metric.DATE), time,
                 m.getMetric(Metric.SEARCH_FOR_ARRIVAL), m.getMetric(Metric.WHEEL_CHAIR_SPACE),
                 m.getMetric(Metric.STROLLER_SPACE), m.getMetric(Metric.LOW_FLOOR),
                 m.getMetric(Metric.RAMP_OR_LIFT), m.getMetric(Metric.MAX_WALK_DISTANCE), null,
@@ -32,6 +32,11 @@ public class TripController implements ITripController {
         trips.sort(new TripItem.TripComparator());
 
         return tripResponse;
+    }
+
+    @Override
+    public TripResponse findTrip(String sourceId, String destinationId) {
+        return findTrip(sourceId, destinationId, m.getMetric(Metric.TIME));
     }
 
     @Override

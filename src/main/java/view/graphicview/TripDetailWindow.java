@@ -98,8 +98,8 @@ public class TripDetailWindow {
             NameResponse nameResponse = tripController.findNames(legItem.getOrigin().getName());
             source = nameResponse.getLocationList().getStopLocation().get(0);
 
-            TripResponse trip = tripController.findTrip(legItem.getOrigin().getId(), dest.getId());
-            TripWindow tripWindow = new TripWindow(trip, source, dest, tripController);
+            TripResponse trip = tripController.findTrip(legItem.getOrigin().getId(), dest.getId(), legItem.getOrigin().getTime());
+            TripWindow tripWindow = new TripWindow(trip, source, dest, legItem.getOrigin().getTime(), tripController);
         }
 
         @Override
