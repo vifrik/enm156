@@ -186,6 +186,7 @@ public class GraphicView extends BaseView implements ActionListener  {
         var srcItem = srcList.getSelectedValue();
         var destItem = destList.getSelectedValue();
         if (srcItem == null || destItem == null) return;
+        if(srcItem.toString().equals(destItem.toString())) return;
 
         var trip = tripController.findTrip(srcItem.getId(), destItem.getId());
         new TripWindow(trip, srcItem, destItem, "nu", tripController);
