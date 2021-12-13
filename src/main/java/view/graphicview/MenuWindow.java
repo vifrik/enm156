@@ -1,5 +1,6 @@
 package view.graphicview;
 
+import controller.Metric;
 import controller.Weights;
 
 import javax.swing.*;
@@ -10,11 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class MenuWindow implements  ChangeListener, ActionListener {
+public class MenuWindow implements  ActionListener {
     JFrame frame;
-    JSlider changeTimeSlider, changesSlider, centralSlider;
     JButton helpButton, backButton;
     private final GraphicView graphicView;
+    private JPanel panel;
 
     MenuWindow(GraphicView graphicView){
         this.graphicView = graphicView;
@@ -22,15 +23,11 @@ public class MenuWindow implements  ChangeListener, ActionListener {
         createFrame();
         createPanel();
 
-        changeTimeSlider = new JSlider(JSlider.HORIZONTAL,5,60,5);
-        changesSlider = new JSlider(JSlider.HORIZONTAL,0,10,5);
-        centralSlider = new JSlider(JSlider.HORIZONTAL,0,10,5);
-
-        addSlider(changeTimeSlider, 200, 50, "Bytestid");
-        addSlider(changesSlider, 200, 125, "Undvik byten");
-        addSlider(centralSlider, 200, 200, "Undvik central");
-
+        createSliders();
+        createCheckBoxes();
         createControlButtons();
+
+        configFrame();
     }
 
     private void createFrame() {
@@ -39,61 +36,76 @@ public class MenuWindow implements  ChangeListener, ActionListener {
         ImageIcon image = new ImageIcon("buss.png");
         frame.setIconImage(image.getImage());
         frame.setSize(500,500);
-        frame.setLayout(null);
+        //frame.setLayout();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
     private void createPanel() {
-        JPanel panel = new JPanel();
-        panel.setPreferredSize(new Dimension(500, 500));
-        frame.add(panel, BorderLayout.AFTER_LAST_LINE);
+        panel = new JPanel(new GridLayout(0,1));
+        panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
     }
 
-    private void addSlider(JSlider slider, int x, int y, String text) {
-        //slider = new JSlider(JSlider.HORIZONTAL,5,60,5);
-        slider.setBounds(x,y,180,50);
-        slider.addChangeListener(this);
-        slider.setMinorTickSpacing(1);
-        slider.setMajorTickSpacing(5);
-        slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
+    private void createSliders() {
+        createSlider(panel, "Bytestid", Metric.ADDITIONAL_CHANGE_TIME, 5, 60, 5, 5, 5, 1);
+        createSlider(panel, "Maximalt gångavstånd", Metric.MAX_WALK_DISTANCE, 0, 10000, 2000, 0, 1000, 100);
+    }
 
-        var label = new JLabel();
-        label.setText(text);
-        label.setBounds(x-150,y,100,50);
-        label.setFont(new Font(null, Font.PLAIN,15));
-        label.setHorizontalTextPosition(JLabel.LEFT);
-        label.setVerticalAlignment(JLabel.CENTER);
+    private void createCheckBoxes() {
+        JPanel subPanel = new JPanel(new GridLayout(0, 3));
 
-        frame.add(slider);
-        frame.add(label);
+        createCheckBox(subPanel, "Rullstolsplatts", Metric.WHEEL_CHAIR_SPACE);
+        createCheckBox(subPanel, "Barnvagnsplatts", Metric.STROLLER_SPACE);
+        createCheckBox(subPanel, "Lågt golv", Metric.LOW_FLOOR);
+        createCheckBox(subPanel, "Ramp eller hiss", Metric.RAMP_OR_LIFT);
+
+        panel.add(subPanel);
     }
 
     private void createControlButtons() {
-        helpButton = createButton("Hjälp", new Rectangle(200, 250, 100, 40));
-        backButton = createButton("Tillbaka", new Rectangle(200, 300, 100, 40));
+        helpButton = createButton(panel, "Hjälp", new Rectangle(200, 250, 100, 40));
+        backButton = createButton(panel, "Tillbaka", new Rectangle(200, 300, 100, 40));
     }
 
-    private JButton createButton(String title, Rectangle bounds) {
+    private void configFrame() {
+        frame.add(panel, BorderLayout.AFTER_LAST_LINE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    private void createCheckBox (JPanel panel, String title, Metric metric) {
+        JCheckBox jCheckBox = new JCheckBox();
+        jCheckBox.setText(title);
+        jCheckBox.addItemListener(new MetricCheckboxItemListener(graphicView.metricController, jCheckBox, metric));
+
+        panel.add(jCheckBox);
+    }
+
+    private JButton createButton(JPanel panel, String title, Rectangle bounds) {
         var button = new JButton(title);
         button.setBounds(bounds);
         button.addActionListener(this);
-        frame.add(button);
+        panel.add(button);
         return button;
     }
+    private void createSlider(JPanel panel, String name, Metric metric, int min, int max, int defaultValue, int offset, int scale, int minorTickSpacing) {
+        System.out.println(panel);
+        JLabel label = new JLabel();
+        label.setText(name);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        label.setForeground(Color.decode("#284B63"));
+        label.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
 
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        if (e.getSource() == changeTimeSlider) {
-            graphicView.metricController.setMetric("change-time", Integer.toString(changeTimeSlider.getValue()));
-        }
-        if (e.getSource() == changesSlider) {
-            graphicView.tripController.setWeight(Weights.AVOID_CHANGES, changesSlider.getValue());
-        }
-        if (e.getSource() == centralSlider) {
-            graphicView.tripController.setWeight(Weights.AVOID_CENTRAL, centralSlider.getValue());
-        }
+        JSlider slider = new JSlider(JSlider.HORIZONTAL,min,max,defaultValue);
+        slider.addChangeListener(new MetricSliderChangeListener(graphicView.metricController, slider, metric, offset));
+        slider.setMinorTickSpacing(1);
+        slider.setMajorTickSpacing(scale);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+
+        panel.add(label);
+        panel.add(slider);
     }
 
     @Override
