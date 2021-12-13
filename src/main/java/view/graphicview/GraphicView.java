@@ -11,17 +11,14 @@ import java.awt.event.ActionListener;
 
 public class GraphicView extends BaseView implements ActionListener  {
     JFrame frame;
-    JMenuBar menuBar;
-    JMenu menu;
-    JMenuItem menuItem;
-
     IMetricController metricController;
     ITripController tripController;
 
+    private JPanel panel;
     private SearchSection sourceSection;
     private SearchSection destinationSection;
     private JButton searchButton;
-    private JPanel panel;
+    private JButton settingsButton;
 
     public GraphicView() {
         super();
@@ -71,14 +68,11 @@ public class GraphicView extends BaseView implements ActionListener  {
 
     private void setupFrameComponents() {
         createPanel();
-        createMenu();
         createSections();
         createSliders(panel);
         createCheckBoxes(panel);
         createFooter();
     }
-
-
 
     private void sizeFrame() {
         frame.pack();
@@ -95,28 +89,6 @@ public class GraphicView extends BaseView implements ActionListener  {
         panel.setBackground(Color.decode("#B4B8AB"));
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         frame.add(panel);
-    }
-
-    private void createMenu() {
-        menuBar = new JMenuBar();
-        menu = new JMenu("Meny");
-        menuItem = new JMenuItem("Filter");
-        menuItem.addActionListener(this);
-        menu.add(menuItem);
-        menuBar.add(menu);
-        frame.setJMenuBar(menuBar);
-    }
-
-    private void createFooter() {
-        JPanel footerPanel = new JPanel();
-        footerPanel.setBackground(Color.decode("#284B63"));
-
-        //button
-        searchButton = new JButton("Sök");
-        searchButton.addActionListener(this);
-        footerPanel.add(searchButton);
-
-        frame.add(footerPanel, BorderLayout.AFTER_LAST_LINE);
     }
 
     private void createSections() {
@@ -140,6 +112,22 @@ public class GraphicView extends BaseView implements ActionListener  {
 
         panel.add(label);
         panel.add(slider);
+    }
+
+    private void createFooter() {
+        JPanel footerPanel = new JPanel();
+        footerPanel.setBackground(Color.decode("#284B63"));
+
+        settingsButton = new JButton("Alternativ");
+        settingsButton.addActionListener(this);
+        footerPanel.add(settingsButton);
+
+
+        searchButton = new JButton("Sök");
+        searchButton.addActionListener(this);
+        footerPanel.add(searchButton);
+
+        frame.add(footerPanel, BorderLayout.AFTER_LAST_LINE);
     }
 
     private void createSliders(JPanel panel) {
@@ -172,7 +160,7 @@ public class GraphicView extends BaseView implements ActionListener  {
             findTrip();
         }
 
-        if(e.getSource()==menuItem) {
+        if(e.getSource() == settingsButton) {
             frame.setVisible(false);
             new MenuWindow(this);
         }
