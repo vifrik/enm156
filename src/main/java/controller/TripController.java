@@ -6,11 +6,14 @@ import model.vasttrafik_api.response_classes.name.NameResponse;
 import model.vasttrafik_api.response_classes.trip.TripItem;
 import model.vasttrafik_api.response_classes.trip.TripResponse;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TripController implements ITripController {
     private final IMetricController m;
     TravelSearch travelSearch;
+    Map<Weights, Integer> weights = new HashMap<>();
 
     public TripController(IMetricController metricController) {
         this.m = metricController;
@@ -26,7 +29,7 @@ public class TripController implements ITripController {
                 m.getMetric(Metric.RAMP_OR_LIFT), m.getMetric(Metric.MAX_WALK_DISTANCE), null,
                 m.getMetric(Metric.ADDITIONAL_CHANGE_TIME));
 
-        tripResponse.getTripList().calculateScores();
+        tripResponse.getTripList().calculateScores(weights);
 
         List<TripItem> trips = tripResponse.getTripList().getTrips();
         trips.sort(new TripItem.TripComparator());
@@ -47,5 +50,10 @@ public class TripController implements ITripController {
     @Override
     public DepartureBoardResponse findDepartures(String id) {
         return travelSearch.getDepartures(id);
+    }
+
+    @Override
+    public void setWeight(Weights weight, Integer value) {
+        weights.put(weight, value);
     }
 }
