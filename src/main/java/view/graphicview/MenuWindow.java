@@ -1,5 +1,7 @@
 package view.graphicview;
 
+import controller.Weights;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -10,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class MenuWindow implements  ChangeListener, ActionListener {
     JFrame frame;
-    JSlider changeTimeSlider;
+    JSlider changeTimeSlider, changesSlider, centralSlider;
     JButton helpButton, backButton;
     private final GraphicView graphicView;
 
@@ -19,7 +21,15 @@ public class MenuWindow implements  ChangeListener, ActionListener {
 
         createFrame();
         createPanel();
-        createChangeTimeSlider();
+
+        changeTimeSlider = new JSlider(JSlider.HORIZONTAL,5,60,5);
+        changesSlider = new JSlider(JSlider.HORIZONTAL,0,10,5);
+        centralSlider = new JSlider(JSlider.HORIZONTAL,0,10,5);
+
+        addSlider(changeTimeSlider, 200, 50, "Bytestid");
+        addSlider(changesSlider, 200, 125, "Undvik byten");
+        addSlider(centralSlider, 200, 200, "Undvik central");
+
         createControlButtons();
     }
 
@@ -40,23 +50,23 @@ public class MenuWindow implements  ChangeListener, ActionListener {
         frame.add(panel, BorderLayout.AFTER_LAST_LINE);
     }
 
-    private void createChangeTimeSlider() {
-        changeTimeSlider = new JSlider(JSlider.HORIZONTAL,5,60,5);
-        changeTimeSlider.setBounds(200,100,180,50);
-        changeTimeSlider.addChangeListener(this);
-        changeTimeSlider.setMinorTickSpacing(1);
-        changeTimeSlider.setMajorTickSpacing(5);
-        changeTimeSlider.setPaintTicks(true);
-        changeTimeSlider.setPaintLabels(true);
+    private void addSlider(JSlider slider, int x, int y, String text) {
+        //slider = new JSlider(JSlider.HORIZONTAL,5,60,5);
+        slider.setBounds(x,y,180,50);
+        slider.addChangeListener(this);
+        slider.setMinorTickSpacing(1);
+        slider.setMajorTickSpacing(5);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
 
         var label = new JLabel();
-        label.setText("Bytestid");
-        label.setBounds(100,100,100,50);
+        label.setText(text);
+        label.setBounds(x-150,y,100,50);
         label.setFont(new Font(null, Font.PLAIN,15));
         label.setHorizontalTextPosition(JLabel.LEFT);
         label.setVerticalAlignment(JLabel.CENTER);
 
-        frame.add(changeTimeSlider);
+        frame.add(slider);
         frame.add(label);
     }
 
@@ -77,6 +87,12 @@ public class MenuWindow implements  ChangeListener, ActionListener {
     public void stateChanged(ChangeEvent e) {
         if (e.getSource() == changeTimeSlider) {
             graphicView.metricController.setMetric("change-time", Integer.toString(changeTimeSlider.getValue()));
+        }
+        if (e.getSource() == changesSlider) {
+            graphicView.tripController.setWeight(Weights.AVOID_CHANGES, changesSlider.getValue());
+        }
+        if (e.getSource() == centralSlider) {
+            graphicView.tripController.setWeight(Weights.AVOID_CENTRAL, centralSlider.getValue());
         }
     }
 

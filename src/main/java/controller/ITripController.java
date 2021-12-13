@@ -11,4 +11,6 @@ public interface ITripController {
     public NameResponse findNames(String query);
 
     public DepartureBoardResponse findDepartures(String id);
+
+    public void setWeight(Weights weight, Integer value);
 }
