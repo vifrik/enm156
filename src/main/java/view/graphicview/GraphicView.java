@@ -27,6 +27,9 @@ public class GraphicView extends BaseView implements ActionListener  {
 
         tripController.setWeight(Weights.AVOID_CENTRAL, 5);
         tripController.setWeight(Weights.AVOID_CHANGES, 5);
+
+        metricController.setMetric(Metric.AVOID_CENTRAL, "5");
+        metricController.setMetric(Metric.AVOID_CHANGES, "5");
     }
 
     public static void main(String[] args) {

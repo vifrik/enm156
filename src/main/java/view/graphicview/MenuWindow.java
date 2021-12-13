@@ -47,6 +47,8 @@ public class MenuWindow implements  ActionListener {
     }
 
     private void createSliders() {
+        createSlider(panel, "Undvik byten", Metric.AVOID_CHANGES, 0, 10, 5, 1, 5, 1);
+        createSlider(panel, "Undvik central", Metric.AVOID_CENTRAL, 0, 10, 5, 1, 5, 1);
         createSlider(panel, "Bytestid", Metric.ADDITIONAL_CHANGE_TIME, 5, 60, 5, 5, 5, 1);
         createSlider(panel, "Maximalt gångavstånd", Metric.MAX_WALK_DISTANCE, 0, 10000, 2000, 0, 1000, 100);
     }
