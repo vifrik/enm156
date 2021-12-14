@@ -29,7 +29,7 @@ public class TripController implements ITripController {
                 m.getMetric(Metric.RAMP_OR_LIFT), m.getMetric(Metric.MAX_WALK_DISTANCE), null,
                 m.getMetric(Metric.ADDITIONAL_CHANGE_TIME));
 
-        tripResponse.getTripList().calculateScores(weights);
+        tripResponse.getTripList().calculateScores(Integer.parseInt(m.getMetric(Metric.AVOID_CHANGES)), Integer.parseInt((m.getMetric(Metric.AVOID_CENTRAL))));
 
         List<TripItem> trips = tripResponse.getTripList().getTrips();
         trips.sort(new TripItem.TripComparator());

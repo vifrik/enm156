@@ -43,7 +43,7 @@ public class TripList {
         return noNamespaceSchemaLocation;
     }
 
-    public void calculateScores(Map<Weights, Integer> weights) {
+    public void calculateScores(Integer changes, Integer central) {
         StationWeight stationWeight = new StationWeight();
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
@@ -51,8 +51,8 @@ public class TripList {
             double score = 0;
 
             score += trip.getTimeScore() / 30;
-            score += trip.getWeightScore(stationWeight) * weights.get(Weights.AVOID_CENTRAL);
-            score += trip.getNofStops() * weights.get(Weights.AVOID_CHANGES);
+            score += trip.getWeightScore(stationWeight) * central;
+            score += trip.getNofStops() * changes;
 
             trip.setScore(score);
         }

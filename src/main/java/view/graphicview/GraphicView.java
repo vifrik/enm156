@@ -11,17 +11,14 @@ import java.awt.event.ActionListener;
 
 public class GraphicView extends BaseView implements ActionListener  {
     JFrame frame;
-    JMenuBar menuBar;
-    JMenu menu;
-    JMenuItem menuItem;
-
     IMetricController metricController;
     ITripController tripController;
 
+    private JPanel panel;
     private SearchSection sourceSection;
     private SearchSection destinationSection;
     private JButton searchButton;
-    private JPanel panel;
+    private JButton settingsButton;
 
     public GraphicView() {
         super();
@@ -30,6 +27,9 @@ public class GraphicView extends BaseView implements ActionListener  {
 
         tripController.setWeight(Weights.AVOID_CENTRAL, 5);
         tripController.setWeight(Weights.AVOID_CHANGES, 5);
+
+        metricController.setMetric(Metric.AVOID_CENTRAL, "5");
+        metricController.setMetric(Metric.AVOID_CHANGES, "5");
     }
 
     public static void main(String[] args) {
@@ -71,14 +71,10 @@ public class GraphicView extends BaseView implements ActionListener  {
 
     private void setupFrameComponents() {
         createPanel();
-        createMenu();
         createSections();
-        createSliders(panel);
-        createCheckBoxes(panel);
+
         createFooter();
     }
-
-
 
     private void sizeFrame() {
         frame.pack();
@@ -97,21 +93,20 @@ public class GraphicView extends BaseView implements ActionListener  {
         frame.add(panel);
     }
 
-    private void createMenu() {
-        menuBar = new JMenuBar();
-        menu = new JMenu("Meny");
-        menuItem = new JMenuItem("Filter");
-        menuItem.addActionListener(this);
-        menu.add(menuItem);
-        menuBar.add(menu);
-        frame.setJMenuBar(menuBar);
+    private void createSections() {
+        sourceSection = new SearchSection(panel, tripController, "Källa");
+        destinationSection = new SearchSection(panel, tripController, "Destination");
     }
 
     private void createFooter() {
         JPanel footerPanel = new JPanel();
         footerPanel.setBackground(Color.decode("#284B63"));
 
-        //button
+        settingsButton = new JButton("Alternativ");
+        settingsButton.addActionListener(this);
+        footerPanel.add(settingsButton);
+
+
         searchButton = new JButton("Sök");
         searchButton.addActionListener(this);
         footerPanel.add(searchButton);
@@ -119,33 +114,7 @@ public class GraphicView extends BaseView implements ActionListener  {
         frame.add(footerPanel, BorderLayout.AFTER_LAST_LINE);
     }
 
-    private void createSections() {
-        sourceSection = new SearchSection(panel, tripController, "Källa");
-        destinationSection = new SearchSection(panel, tripController, "Destination");
-    }
 
-    private void createSlider(JPanel panel, String name, Metric metric, int min, int max, int defaultValue, int offset, int scale) {
-        JLabel label = new JLabel();
-        label.setText(name);
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        label.setForeground(Color.decode("#284B63"));
-        label.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
-
-        JSlider slider = new JSlider(JSlider.HORIZONTAL,min,max,defaultValue);
-        slider.addChangeListener(new MetricSliderChangeListener(metricController, slider, metric, offset));
-        slider.setMinorTickSpacing(1);
-        slider.setMajorTickSpacing(scale);
-        slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
-
-        panel.add(label);
-        panel.add(slider);
-    }
-
-    private void createSliders(JPanel panel) {
-        createSlider(panel, "Bytestid", Metric.ADDITIONAL_CHANGE_TIME, 5, 60, 5, 5, 5);
-        createSlider(panel, "Maximalt gångavstånd", Metric.ADDITIONAL_CHANGE_TIME, 0, 10000, 2000, 0, 1000);
-    }
 
     private void createCheckBox (JPanel panel, String title, Metric metric) {
         JCheckBox jCheckBox = new JCheckBox();
@@ -172,7 +141,7 @@ public class GraphicView extends BaseView implements ActionListener  {
             findTrip();
         }
 
-        if(e.getSource()==menuItem) {
+        if(e.getSource() == settingsButton) {
             frame.setVisible(false);
             new MenuWindow(this);
         }
