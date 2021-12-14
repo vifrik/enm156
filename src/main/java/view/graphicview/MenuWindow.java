@@ -92,7 +92,6 @@ public class MenuWindow implements  ActionListener {
         return button;
     }
     private void createSlider(JPanel panel, String name, Metric metric, int min, int max, int defaultValue, int offset, int scale, int minorTickSpacing) {
-        System.out.println(panel);
         JLabel label = new JLabel();
         label.setText(name);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
